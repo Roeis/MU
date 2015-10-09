@@ -19,22 +19,12 @@
         width: 100%;
     }
     
-    .page {
-        height: 100%;
-        width: 100%;
-        padding: 2rem;
-    }
-    
-    .slider2 {
-        height: 50px;
-        background-color: #CCC;
-    }
     .wrapper {
         color: rgb(51, 51, 51);
         background-image: url(http://i2.w.hjfile.cn/news/201505/201505063473484729.jpg);
         background-color: rgb(255, 255, 255);
-        background-size: auto 100%;
-        background-position: 50% 50%;
+        background-size: cover;
+        /*background-position: 50% 50%;*/
         background-repeat: no-repeat;
     }
     </style>
@@ -43,7 +33,60 @@
 <body>
     <div class="wrapper">
         <div class="page page0">
-            <div class="m_cont" style="display: none;"><div class="item_edit item_drag" data-type="2" style="position:absolute; left:9%; top:53%; width:8%; height:40%; z-index:auto; opacity:0; -webkit-animation:lengthDown 1s ease 0s 1 normal forwards; -webkit-animation-play-state:initial; background-image:none; background-color:rgb(253, 113, 55); background-size:100%; background-repeat:no-repeat; animation:lengthDown 1s ease 0s 1 normal forwards; animation-play-state:initial;"><div class="m_elem"></div></div><div class="item_edit item_drag" data-type="2" style="position:absolute; left:26%; top:67%; width:8%; height:26%; z-index:auto; opacity:0; -webkit-animation:lengthDown 1s ease 0.2s 1 normal forwards; -webkit-animation-play-state:initial; background-image:none; background-color:rgb(160, 115, 253); background-size:100%; background-repeat:no-repeat; animation:lengthDown 1s ease 0.2s 1 normal forwards; animation-play-state:initial;"><div class="m_elem"></div></div><div class="item_edit item_drag" data-type="2" style="position:absolute; left:43%; top:59%; width:9%; height:34%; z-index:auto; opacity:0; -webkit-animation:lengthDown 1s ease 0.3s 1 normal forwards; -webkit-animation-play-state:initial; background-image:none; background-color:rgb(133, 205, 76); background-size:100%; background-repeat:no-repeat; animation:lengthDown 1s ease 0.3s 1 normal forwards; animation-play-state:initial;"><div class="m_elem"></div></div><div class="item_edit item_drag" data-type="2" style="position:absolute; left:62%; top:41%; width:8%; height:52%; z-index:auto; opacity:0; -webkit-animation:lengthDown 1s ease 0.4s 1 normal forwards; -webkit-animation-play-state:initial; background-image:none; background-color:rgb(99, 146, 255); background-size:100%; background-repeat:no-repeat; animation:lengthDown 1s ease 0.4s 1 normal forwards; animation-play-state:initial;"><div class="m_elem"></div></div><div class="item_edit item_drag" data-type="2" style="position:absolute; left:80%; top:24%; width:9%; height:69%; z-index:auto; opacity:0; -webkit-animation:lengthDown 1s ease 0.5s 1 normal forwards; -webkit-animation-play-state:initial; background-image:none; background-color:rgb(254, 210, 100); background-size:100%; background-repeat:no-repeat; animation:lengthDown 1s ease 0.5s 1 normal forwards; animation-play-state:initial;"><div class="m_elem"></div></div><div class="item_edit item_drag item_jump" data-type="30" data-page="5" style="color:rgb(255, 255, 255); width:85%; left:7%; top:5%; position:absolute; height:9%; border-radius:5px; z-index:auto; animation:fadeInRight 1s ease 0s 1 normal forwards; opacity:0; background-color:rgb(46, 184, 74);"><div class="m_elem"><p>查看答案</p></div></div></div>
+            <div class="m_cont" style="display: block;">
+                <div class="item_edit item_drag" data-type="2" style="position:absolute; left:9%; top:53%; width:8%; height:40%; z-index:auto; opacity:0; -webkit-animation:lengthDown 1s ease 0s 1 normal forwards; -webkit-animation-play-state:initial; background-image:none; background-color:rgb(253, 113, 55); background-size:100%; background-repeat:no-repeat; animation:lengthDown 1s ease 0s 1 normal forwards; animation-play-state:initial;">
+                    <div class="m_elem"></div>
+                </div>
+                <div class="item_edit item_drag" data-type="2" style="position:absolute; left:26%; top:67%; width:8%; height:26%; z-index:auto; opacity:0; -webkit-animation:lengthDown 1s ease 0.2s 1 normal forwards; -webkit-animation-play-state:initial; background-image:none; background-color:rgb(160, 115, 253); background-size:100%; background-repeat:no-repeat; animation:lengthDown 1s ease 0.2s 1 normal forwards; animation-play-state:initial;">
+                    <div class="m_elem"></div>
+                </div>
+                <div class="item_edit item_drag" data-type="2" style="position:absolute; left:43%; top:59%; width:9%; height:34%; z-index:auto; opacity:0; -webkit-animation:lengthDown 1s ease 0.3s 1 normal forwards; -webkit-animation-play-state:initial; background-image:none; background-color:rgb(133, 205, 76); background-size:100%; background-repeat:no-repeat; animation:lengthDown 1s ease 0.3s 1 normal forwards; animation-play-state:initial;">
+                    <div class="m_elem"></div>
+                </div>
+                <div class="item_edit item_drag" data-type="2" style="position:absolute; left:62%; top:41%; width:8%; height:52%; z-index:auto; opacity:0; -webkit-animation:lengthDown 1s ease 0.4s 1 normal forwards; -webkit-animation-play-state:initial; background-image:none; background-color:rgb(99, 146, 255); background-size:100%; background-repeat:no-repeat; animation:lengthDown 1s ease 0.4s 1 normal forwards; animation-play-state:initial;">
+                    <div class="m_elem"></div>
+                </div>
+                <div class="item_edit item_drag" data-type="2" style="position:absolute; left:80%; top:24%; width:9%; height:69%; z-index:auto; opacity:0; -webkit-animation:lengthDown 1s ease 0.5s 1 normal forwards; -webkit-animation-play-state:initial; background-image:none; background-color:rgb(254, 210, 100); background-size:100%; background-repeat:no-repeat; animation:lengthDown 1s ease 0.5s 1 normal forwards; animation-play-state:initial;">
+                    <div class="m_elem"></div>
+                </div>
+
+                <div class="item_edit item_drag item_jump" data-type="30" data-page="5" style="color:rgb(255, 255, 255); width:85%; left:7%; top:5%; position:absolute; height:9%; border-radius:5px; z-index:auto; animation:fadeInRight 1s ease 0s 1 normal forwards; opacity:0; background-color:rgb(46, 184, 74);">
+                    <div class="m_elem">
+                        <p>查看答案</p>
+                    </div>
+                </div>
+                <style>
+                    .item{
+                        left:0%;
+                        top:10%;
+                        width: 40%;
+                        height: 40%;
+                        position:absolute;
+                        -webkit-animation:fadeInRight 1s ease 0s 1 normal forwards;
+                        animation:fadeInRight 1s ease 0s 1 normal forwards;
+                    }
+                    
+                    .elem_edit{
+                        transform:rotate(45deg);
+                        -webkit-transform:rotate(45deg);
+                        background-color:rgb(46, 184, 74);
+                        border-radius:5px;
+                        text-align: center;
+                    }
+                </style>
+                <div class="item" data-id="001" data-role="btn">
+                    <div class="elem_edit">
+                        <div class="item_html">
+                            asd
+                        </div>
+                    </div>
+                </div>
+                <!-- 
+                    可编辑元素
+
+
+                 -->
+            </div>
         </div>
         <div class="page page1" style="color: rgb(51, 51, 51);background-image: url(http://i2.w.hjfile.cn/news/201506/201506042570212815.jpg);background-color: rgba(0, 0, 0, 0);background-size: auto 100%;background-position: 50% 50%;background-repeat: no-repeat;">
             <div class="m_cont" style="display: none;">
@@ -51,11 +94,10 @@
                     <div class="m_elem"></div>
                 </div>
             </div>
-            
         </div>
         <div class="page page2" style="background: #0cF;">
             <div class="m_cont" style="display: none;">
-                <div class="item_edit item_drag item_btn" data-type="6" style="color:rgb(255, 255, 255); width:70%; left:15%; top:82%; position:absolute; height:10%; border-radius:50px; -webkit-animation:tada 1s ease 0s 1 normal; animation:tada 1s ease 0s 1 normal; opacity: 1; z-index:auto; background-color:rgb(51, 129, 219);">
+                <div class="item_edit item_drag item_btn" data-type="6" style="color:rgb(255, 255, 255); width:70%; left:15%; top:82%; position:absolute; height:10%; border-radius:50px; -webkit-animation:tada 1s ease 0s 1 normal forwards; animation:tada 1s ease 0s 1 normal forwards; opacity: 0; z-index:auto; background-color:rgb(51, 129, 219);">
                     <div class="m_elem">
                         <p style="text-align: center;">
                             <span style="font-size: 20px;">立即加入QQ群</span>
@@ -84,27 +126,26 @@
     <script src="../util/mu.js"></script>
     <script src="mu.slider.js"></script>
     <script>
-        mu.util.preventScroll();
-        var slider = new MuSlider('.wrapper', {
-            // isLoop: true,
-            // autoSlide: true,
-            isVert: true,
-            beforeSlide: function($nextPage, $prevPage) {
-            },
-            afterSlide: function($nextPage, $prevPage, index) {
-                $nextPage.find('.m_cont').show();
-                console.log($nextPage, $prevPage, index);
-                $prevPage.find('.m_cont').hide();
-            }
-        });
+    mu.util.preventScroll();
+    var slider = new MuSlider('.wrapper', {
+        // isLoop: true,
+        // autoSlide: true,
+        isVert: true,
+        beforeSlide: function($nextPage, $prevPage) {},
+        afterSlide: function($nextPage, $prevPage, index) {
+            $nextPage.find('.m_cont').show();
+            console.log($nextPage, $prevPage, index);
+            $prevPage.find('.m_cont').hide();
+        }
+    });
 
-        $('#prev').on('click', function() {
-            slider.prev();
-        });
+    $('#prev').on('click', function() {
+        slider.prev();
+    });
 
-        $('#next').on('click', function() {
-            slider.next();
-        });
+    $('#next').on('click', function() {
+        slider.next();
+    });
     </script>
 </body>
 

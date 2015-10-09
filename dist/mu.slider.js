@@ -55,15 +55,7 @@
             self.$slider = self.$children.closest('.slider-wrap');
 
             // in vertical mode , it resolve a different value
-            var height;
-            if(self.opts.isVert){
-                height = self.$el.height();
-            }else{
-                height = self.$children.height();
-            }
-            if(height > 0){
-                self.$el.css('height', height);
-            }
+            self._setHeight();
 
             if(self.opts.isHidden){
                 self.$el.css('overflow', 'hidden');
@@ -97,6 +89,12 @@
             if(self.opts.autoSlide){
                 self.loop();
             }
+        },
+        _setHeight: function(){
+            var height;
+
+            if(!this.opts.isVert) height = this.$children.height();
+            if(height > 0) this.$el.css('height', height);
         },
         _setClone: function(){
             if(this.opts.isLoop){

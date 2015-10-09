@@ -5,14 +5,9 @@
 <html lang="zh-cn">
 
 <head>
-    
-    <!-- 字符编码 -->
+
     <meta charset="UTF-8" />
-
-    <!-- IE兼容模式 -->
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-
-    <!-- viewport // 海波viewport缩放方案 -->
     <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
     <!-- seo settings -->
@@ -20,48 +15,59 @@
     <meta name="Keywords" content="">
     <meta name="Description" content="">
 
-
-
-    <!-- 
-        引入CSS, JS //不需要指明type, text/css, text/javascript 都是默认值
-        实用高于完美
-        尽量遵循HTML标准和语义，但是不应该以浪费实用性作为代价；
-        任何时候都要用尽量小的复杂度和尽量少的标签来解决问题。 
-    -->
-    <!-- External CSS -->
-    <link href="base.css" rel="stylesheet">
-
-    <!-- 避免<style>，以及inline-style -->
+    <link rel="stylesheet" href="/src/styles/base.css">
+    <link rel="stylesheet" href="/dist/mu.css">
+    <link rel="stylesheet" href="app.css">
 </head>
 
 <body>
-    <!-- 
-        交互由dialog/popup来实现
-        scroll尽量保持在body, window上
-        IMPORTANT 避免scroll元素做动画交互
-    -->
 
     <div class="wrapper">
         
-        <header>header</header>
-
-        here is a wrapper
-        
-        
-        <h1>h1</h1>
-        <h2>h2</h2>
-        <h3>h3</h3>
-        
-        <ul>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-        </ul>
-
+        <div class="page page0">
+            <div class="m_cont">
+                
+                <div class="item1">1</div>
+                <div class="item2">2</div>
+                
+                <div class="item3">
+                    <div class="item_elem">
+                        check link
+                    </div>
+                </div>
+                <div class="item4"></div>
+                <div class="item5" data-origin="40,30"></div>
+            </div>
+        </div>
+        <div class="page page1" style="background: rgba(170, 180, 199, 0.8);">
+            <div class="m_cont">
+                <div class="item1">1</div>
+                <div class="item2">2</div>
+                
+                <div class="item3">
+                    <div class="item_elem">
+                        check link
+                    </div>
+                </div>
+                <div class="item4"></div>
+            </div>
+        </div>
+        <div class="page page2" style="background: rgba(170, 180, 199, 0.8);">
+            <div class="m_cont">
+                2
+            </div>
+        </div>
+        <div class="page page3" style="background: rgba(170, 180, 199, 0.8);">
+            <div class="m_cont">
+                3
+            </div>
+        </div>
     </div>
 
     <!-- External JS // 外部库, 插件等 -->
-    <script src="/vendor/jq/jquery-2.1.3.min.js"></script>
+    <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
+    <script src="/vendor/zepto.min.js"></script>
+    <script src="/dist/mu.latest.min.js"></script>
 
     <!-- Internal JS // 内部私有插件, 公用方法等-->
 

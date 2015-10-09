@@ -13,7 +13,7 @@
         autoSlide: false,                   //自动轮播
         isLoop: true,                       //是否创建克隆，连续循环
         speed: 500,                         //滑动速度
-        isVert: false,                      //滑动方向
+        isVert: false,                      //滑动方向, 一般仅应用在单屏滑动页面中
         isHidden: true,                     //容器是否支持溢出
         timing: true,
         beforeSlide: function(index) {},
@@ -59,6 +59,8 @@
 
 
 ### log:
+15/10/09 修正slider垂直方向时，设置高度取消
+
 15/09/23 添加回调参数, $pageou, $pagein
 
 15/19/18 新增选项，可配置transition-timing-function

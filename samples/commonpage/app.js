@@ -65,11 +65,13 @@
             }
         },
     };
+    $(function(){
+        core.init({
+            scrollCallback: function(index){
+                $('.page').eq(index).find('.m_cont').show();
+            }
+        });
+    })
 
-    core.init({
-        scrollCallback: function(index){
-            $('.page').eq(index).find('.m_cont').show();
-        }
-    });
 
 })(window.Zepto || window.jQuery);
