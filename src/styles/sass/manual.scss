@@ -1,8 +1,7 @@
-$purple: #2A203C;
+$purple: #F50;
 
 header{
   text-align: center;
-  border-bottom: 1px solid #EEE;
   margin-bottom: 2rem;
   padding: 3rem 0;
   background: $purple;
@@ -48,10 +47,10 @@ footer{
     border-radius: 3px;
     a{
       display: block;
-      color: $purple;
+      color: #333;
     }
     &:active{
-      background-color: #E64444;
+      background-color: $purple;
       a{
         color: #fff;
       }

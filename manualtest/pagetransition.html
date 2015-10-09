@@ -10,17 +10,37 @@
     <link rel="stylesheet" href="/src/styles/base.css">
     <link rel="stylesheet" href="/src/styles/manual.css">
     <link rel="stylesheet" href="/dist/mu.css">
+    <style>
+        .wrapper{
+            height: 100%;
+            z-index: 1;
+        }
+    </style>
 </head>
 
 <body>
     
     <div class="wrapper wrapper-one">
         <div class="page">
+            <header class="cf">
+                <h3>MU</h3>
+                <p>- page.transition -</p>
+            </header>
             <div class="title">
                 <h3>单屏切换</h3>
             </div>
-            <p>测试点</p>
-            <p>快速滑动或点击等极端情况的表现等</p>
+            <br>
+            <pre>
+    var page = new MuPage('.page', {
+        isLoop: true,
+        beforeSlide: function() {
+            console.log('slide before');
+        },
+        afterSlide: function() {
+            console.log('slide after');
+        }
+    });
+            </pre>
         </div>
         <div class="page" style="background: #CCC;">
             2

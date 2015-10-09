@@ -7,14 +7,12 @@
     background-position: center;
     background-repeat: no-repeat;
 }
-.page{
-    position: relative;
-}
+
 .page .m_cont{
     background-color: rgba(0,0,0,.5);
 }
 .page0 .m_cont{
-    background-color: rgba(255, 255, 255, .5);
+    background-color: rgba(255, 255, 255, 0);
 }
 /**/
 .item1{

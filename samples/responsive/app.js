@@ -16,12 +16,14 @@
 
     var core = {
         init: function() {
+            $('.page').css('position', 'relative');
             this.setSize();
             this.bind();
         },
 
         setSize: function() {
             var size = this.getSize();
+
 
             $('.m_cont').css({
                 width: size.width,
@@ -69,8 +71,7 @@
     core.init();
 
     $(function() {
-        var slider = new MuSlider('.wrapper', {
-            // isVer// isLoop: true,
+        window.slider = new MuSlider('.wrapper', {
             // autoSlide: true,
             isVert: true,
             // isLoop: true,
@@ -78,5 +79,11 @@
             beforeSlide: function($nextPage, $prevPage) {},
             afterSlide: function($nextPage, $prevPage, index) {}
         });
+
+        // window.page = new MuPage('.page', {
+        //     // isLoop: true,
+        //     beforeSlide: function($nextPage, $prevPage) {},
+        //     afterSlide: function($nextPage, $prevPage, index) {}
+        // });
     });
 })();

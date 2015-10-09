@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!-- HTML5 doctype -->
+
+<!-- lang属性 -->
+<html lang="zh-cn">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <!-- seo settings -->
+    <title>example roeis</title>
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+
+    <link rel="stylesheet" href="/src/styles/base.css">
+    <link rel="stylesheet" href="/dist/mu.css">
+    <style>
+        .wrapper{
+    height: 100%;
+    width: 100%;
+    background-image: url(http://i2.w.hjfile.cn/news/201505/201505063473484729.jpg);
+    background-color: rgb(255, 255, 255);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.page .m_cont{
+    background-color: rgba(0,0,0,.5);
+}
+.page0 .m_cont{
+    background-color: rgba(255, 255, 255, 0);
+}
+/**/
+.item1{
+    position: absolute;
+    width: 90%;
+    left: 5%;
+    height: 10%;
+    top: 87%;
+    background-color: #f50;
+}
+.item2{
+    position: absolute;
+    width: 30%;
+    height: 30%;
+    left: 65%;
+    top: 52%;
+    background-color: #f90;
+}
+.item3{
+    position: absolute;
+    width: 90%;
+    height: 10%;
+    left: 5%;
+    top: 3%;
+    background-color:rgb(46, 184, 74);
+    color: #FFF;
+    text-align: center;
+    border-radius: 5px;
+
+    display: table;
+}
+
+.item_elem{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.item4{
+    position: absolute;
+    width: 30%;
+    height: 20%;
+    left: 10%;
+    top: 20%;
+    background: url(http://i2.w.7.hjfile.cn/entry/201507/2cd3094d-f7b6-4e0f-8c75-4f847c94586f.jpg) no-repeat;
+    background-size: 100% auto;
+    /*background-position: center;*/
+}
+.item5{
+    position: absolute;
+    -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
+    width: 15%;
+    height: 10%;
+    left: 10%;
+    top: 50%;
+    background-color: #fb0;
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        
+        <div class="page page0">
+            <div class="m_cont">
+                
+                <div class="item1">1</div>
+                <div class="item2" style="-webkit-animation:fadeInRight 1s ease 0s;animation:fadeInRight 1s ease 0s; opacity:1;">2</div>
+                
+                <div class="item3">
+                    <div class="item_elem">
+                        check link
+                    </div>
+                </div>
+                <div class="item4"></div>
+                <div class="item5" data-origin="40,30"></div>
+            </div>
+        </div>
+        <div class="page page1" style="background: rgba(170, 180, 199, 0.8);">
+            <div class="m_cont">
+                <div class="item1">1</div>
+                <div class="item2">2</div>
+                
+                <div class="item3">
+                    <div class="item_elem">
+                        check link
+                    </div>
+                </div>
+                <div class="item4"></div>
+            </div>
+        </div>
+        <div class="page page2" style="background: rgba(170, 180, 199, 0.8);">
+            <div class="m_cont">
+                <div class="item1">1</div>
+            </div>
+        </div>
+        <div class="page page3" style="background: rgba(170, 180, 199, 0.8);">
+            <div class="m_cont">
+                page 3
+                <div class="item2">2</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JS // 外部库, 插件等 -->
+    <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
+    <script src="/vendor/zepto.min.js"></script>
+    <script src="/dist/mu.latest.min.js"></script>
+
+    <!-- Internal JS // 内部私有插件, 公用方法等-->
+
+    <!-- Application JS //当前 应用层.业务层.页面层 JS -->
+    <script>
+        (function() {
+            'use strict';
+            console.log('app start');
+            var standardRatio = 1.5;
+
+            var core = {
+                init: function() {
+                    $('.page').css('position', 'relative');
+                    this.setSize();
+                    this.bind();
+                },
+
+                setSize: function() {
+                    var size = this.getSize();
+
+
+                    $('.m_cont').css({
+                        width: size.width,
+                        height: size.height,
+                        left: size.left,
+                        top: size.top,
+                        position: 'absolute'
+                    });
+                },
+
+                getSize: function() {
+                    var winHeight = document.documentElement.clientHeight || window.innerHeight,
+                        winWidth = document.documentElement.clientWidth || window.innerWidth,
+                        ratio = winHeight / winWidth,
+                        width, height, left, top;
+
+                    if (ratio > standardRatio) {
+                        width = winWidth;
+                        height = width * standardRatio;
+                        top = (winHeight - height) / 2;
+                        left = 0;
+                    } else {
+                        height = winHeight;
+                        width = height / standardRatio;
+                        left = (winWidth - width) / 2;
+                        top = 0;
+                    }
+
+                    return {
+                        width: width,
+                        height: height,
+                        top: top,
+                        left: left
+                    };
+                },
+
+                bind: function() {
+                    var self = this;
+                    $(window).on('resize', function() {
+                        self.setSize();
+                    });
+                }
+            };
+
+            core.init();
+
+            $(function() {
+                window.slider = new MuSlider('.wrapper', {
+                    // autoSlide: true,
+                    isVert: true,
+                    // isLoop: true,
+                    // timing: 'cubic-bezier(.61,.07,.05,.87)',
+                    beforeSlide: function($nextPage, $prevPage) {},
+                    afterSlide: function($nextPage, $prevPage, index) {}
+                });
+
+                // window.page = new MuPage('.page', {
+                //     // isLoop: true,
+                //     beforeSlide: function($nextPage, $prevPage) {},
+                //     afterSlide: function($nextPage, $prevPage, index) {}
+                // });
+            });
+        })();
+    </script>
+</body>
+
+</html>

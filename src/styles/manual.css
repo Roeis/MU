@@ -1,9 +1,8 @@
 header {
   text-align: center;
-  border-bottom: 1px solid #EEE;
   margin-bottom: 2rem;
   padding: 3rem 0;
-  background: #2A203C;
+  background: #F50;
   background-size: cover;
   color: #FFF;
   line-height: 4rem;
@@ -48,10 +47,10 @@ footer {
 }
 .list li a {
   display: block;
-  color: #2A203C;
+  color: #333;
 }
 .list li:active {
-  background-color: #E64444;
+  background-color: #F50;
 }
 .list li:active a {
   color: #fff;

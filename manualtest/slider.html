@@ -14,13 +14,12 @@
 
 <body>
     
+    <header class="cf">
+        <h3>MU</h3>
+        <p>- slider -</p>
+    </header>
     <div class="wrapper">
-        <div class="title">
-            <h3>轮播</h3>
-            <p>测试点</p>
-            <p>流畅度，位置等</p>
-        </div>
-        <div class="slider">
+        <div class="slider" id="slider1">
             <div class="li">slider1</div>
             <div class="li">slider2</div>
             <div class="li">slider3</div>
@@ -28,6 +27,11 @@
             <div class="li">slider5</div>
         </div>
         <br>
+        <pre>
+    var slider = new muSlider('#slider1', {
+        isLoop: true,
+    });
+        </pre>
     </div>
     <div class="fix slider_fix">
         <div class="slider" id="slider2">
@@ -44,8 +48,12 @@
     <script src="/dist/mu.js"></script>
     <script src="/dist/mu.slider.js"></script>
     <script>
-        // var slider = new muSlider('#slider2');
-        $('.slider').muSlider();
+        var slider = new MuSlider('#slider1', {
+            isLoop: true,
+        });
+        var slider2 = new MuSlider('#slider2', {
+            isLoop: true,
+        });
     </script>
 </body>
 
