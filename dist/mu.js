@@ -152,6 +152,7 @@
             }
             return o;
         },
+
         /**
          * [extend description]
          * @param  {Object} obj 
@@ -166,6 +167,7 @@
             }
             return obj;
         },
+
         /**
          * 动态加载样式
          * @param  {String} url 样式URL
