@@ -71,17 +71,15 @@
   clear: both;
 }
 
-@media screen and (min-width: 480px) {
+/*@media screen and (min-width: 480px) {
   .mu-dialog {
     width: 480px;
-    left: 0;
-    right: 0;
   }
 
   .mu-pop {
     width: 280px;
   }
-}
+}*/
 @-webkit-keyframes fadeIn {
   0% {
     opacity: 0;

@@ -16,6 +16,22 @@
             left: 0;
             top: 0;
         }
+        #pop1{
+            left: 0;
+            top: 0;
+        }
+        #pop2{
+            left: 0;
+            top: 0;
+        }
+        #pop3{
+            left: 0;
+            bottom: 0;
+        }
+        #pop4{
+            right: 0;
+            top: 45%;
+        }
     </style>
 </head>
 
@@ -27,19 +43,97 @@
     <div class="wrapper">
         <div class="content">
             <p>弹窗 | 居中</p>
+
             <div class="btn" id="open1">open dialog</div>
             <br>
-            <p>弹窗 | 自定义</p>
+            <br>
+            <br>
+
+            <p>Effect : scaleDownIn</p>
             <div class="btn" id="open2">open dialog</div>
             <br>
             <br>
+            <br>
+
+            <p>Effect : scaleUpIn</p>
+            <div class="btn btn-custom" data-id="1">open dialog</div>
+            <pre>
+var pop1 = new MuDialog('#pop1', {
+    preset: 'scaleUpIn',
+    // isCenter: false
+});
+            </pre>
+            <br>
+            <br>
+            <br>
+            <br>
+            <p>Effect : fadeInUp</p>
+            <div class="btn btn-custom" data-id="2">open dialog</div>
+            <pre>
+var pop2 = new MuDialog('#pop2', {
+    preset: 'fadeInUp',
+    isCenter: false
+});
+
+            </pre>
+            <br>
+            <br>
+            <br>
+            <br>
+            <p>Effect : fadeInDown</p>
+            <div class="btn btn-custom" data-id="3">open dialog</div>
+            <pre>
+var pop3 = new MuDialog('#pop3', {
+    preset: 'fadeInDown',
+    isCenter: false
+});
+            </pre>
+            <br>
+            <br>
+            <br>
+            <br>
+            <p>Effect : fadeInRight</p>
+            <div class="btn btn-custom" data-id="4">open dialog</div>
+            <pre>
+var pop4 = new MuDialog('#pop4', {
+    preset: 'fadeInRight',
+    isCenter: false
+});
+            </pre>
+            <br>
+            <br>
+            <br>
+            <br>
+
             <h3>mu.util 拓展</h3>
+
             <p>警告框</p>
             <div class="btn" id="alert">alert</div>
+            <pre>
+mu.util.alert('this is an alert');
+            </pre>
+            <br>
+            <br>
+            <br>
             <p>提示框</p>
             <div class="btn" id="tip">tip</div>
+            <pre>
+mu.util.tip('this is a tip', 1000);
+            </pre>
+            <br>
+            <br>
+            <br>
             <p>确认框</p>
             <div class="btn" id="confirm">confirm</div>
+            <pre>
+mu.util.confirm('你确定要修改吗?', function(flag){
+    if(flag){
+        console.log('ok');
+    }else{
+        console.log('false');
+    }
+});
+            </pre>
         </div>
     </div>
     <div class="pop pop1">
@@ -48,6 +142,19 @@
 
     <div class="pop pop2">
         this is custom pop dialog 2
+    </div>
+
+    <div class="pop" id="pop1">
+        this is custom pop dialog 1
+    </div>
+    <div class="pop" id="pop2">
+        this is custom pop dialog 2
+    </div>
+    <div class="pop" id="pop3">
+        this is custom pop dialog 3
+    </div>
+    <div class="pop" id="pop4">
+        this is custom pop dialog 4
     </div>
     
     <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
@@ -69,6 +176,39 @@
             var dialog2 = new MuDialog('.pop2', {
                 isCenter: false,
                 opacity: 0.5
+            });
+
+            var pop1 = new MuDialog('#pop1', {
+                preset: 'scaleUpIn',
+                // isCenter: false
+            });
+
+            // fadeIn, fadeInUp, fadeInDown, fadeInRight
+            var pop2 = new MuDialog('#pop2', {
+                preset: 'fadeInUp',
+                isCenter: false
+            });
+
+            var pop3 = new MuDialog('#pop3', {
+                preset: 'fadeInDown',
+                isCenter: false
+            });
+
+            var pop4 = new MuDialog('#pop4', {
+                preset: 'fadeInRight',
+                isCenter: false
+            });
+
+            var dialogs ={
+                0: pop1,
+                1: pop2,
+                2: pop3,
+                3: pop4
+            };
+
+            $('.btn-custom').on('click', function(){
+                var id = $(this).data('id') - 1;
+                dialogs[id].open();
             });
 
             $('#open1').on('click', function() {
