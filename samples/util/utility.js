@@ -212,23 +212,6 @@
         return params;
     },
 
-    //分析请求字串
-    parseQuery: function (query) {
-        var str = (query || "").replace(/^#/, "");
-        arr = str.split('&');
-        var params = {};
-        for (var i = 0; i < arr.length; i++) {
-            var arr2 = arr[i].split('=');
-            var name = arr2[0].toLowerCase();
-            var value = decodeURIComponent(arr2[1]);
-            if (value.match(/%[0-9A-F]{2}/)) {
-                value = decodeURIComponent(value);
-            }
-            params[name] = value;
-        }
-        return params;
-    },
-
 
 
     uniqID: function (string) {
@@ -1026,3 +1009,246 @@ function iframeAutoFit(iframeObj){
             }
             return width;
         },
+
+var ua = window.navigator.userAgent.toLowerCase();
+
+isWeixin : /micromessenger/.test(ua)
+isAndroid: /android/.test(ua)
+isIOS:/iphone|ipad|ipod/.test(ua)
+isMeizu: /m[0-9x]{1,3}/.test(ua)
+isChrome: /chrome/.test(ua)
+isUC : /ucbrowser/.test(ua)
+isQQ : /mqqbrowser/.test(ua)
+isWP : /windows phone|iemobile/.test(ua)
+isBlackBerry : /blackberry/i.test(ua)
+
+
+/**
+ * [getGUID description]
+ * @return {[type]} [description]
+ */
+getGUID: function() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0,
+            v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    }).toUpperCase();
+},
+
+
+(function($) {
+    'use strict';
+    var animationEvent = function() {
+            var body = document.body || document.documentElement,
+                animationEventNames = {
+                    'WebkitTransition': ['webkitAnimationEnd','webkitTransitionEnd','webkitAnimationIteration', 'webkitAnimationStart'],
+                    'OTransition': ['oanimationend ','oTransitionEnd otransitionend','oanimationiteration', 'oanimationstart'],
+                    'transition': ['animationEnd','transitionend','animationiteration', 'animationstart']
+                };
+
+            for (var name in animationEventNames) {
+                if (typeof body.style[name] === 'string') {
+                    return {
+                        animationStart: animationEventNames[name][3],
+                        animationIteration: animationEventNames[name][2],
+                        animationEnd: animationEventNames[name][0],
+                        transitionEnd: animationEventNames[name][1]
+                    };
+                }
+            }
+            return false;
+        };
+
+    var animationEvents = animationEvent(),
+        fnNames = {
+            'animationStart': animationEvents.animationStart,
+            'animationIteration': animationEvents.animationIteration,
+            'animationEnd': animationEvents.animationEnd,
+            'transitionEnd': animationEvents.transitionEnd
+        };
+
+    window.animationEvents = animationEvents;
+    /**
+     * callback after adding one css animation that ends
+     * @param  {String}   cls      
+     * @param  {Function} callback 
+     * @return {Object}            
+     */
+    $.fn.oneAnimationEnd = function (cls, callback){
+        $(this[0]).addClass(cls).one(fnNames.animationEnd, function(){
+            callback && callback.call(this);
+        });
+        return this;
+    };
+    
+})(window.Zepto || window.jQuery);
+
+
+/**
+ * -------------------------------------------------------------
+ * Copyright (c) 2015 All rights reserved.
+ * @version: 1.1.0
+ * @author: roeis
+ * @description: extend a custom simple touch function collection
+ * @todo add mouse event
+ * -------------------------------------------------------------
+ */
+(function($) {
+    'use strict';
+    var start, delta, isScrolling,
+        defaults = {
+            enableVertical: false,
+            start: function(){},
+            move: function(){},
+            end: function(){}
+        };
+    var isMobile   = window.mu ? window.mu.detect.isMobile : true,
+        startEvent  = isMobile ? 'touchstart' : 'mousedown',
+        moveEvent   = isMobile ? 'touchmove' : 'mousemove',
+        endEvent    = isMobile ? 'touchend' : 'mouseup';
+
+    $.fn.swipeable = function(opts) {
+        opts = $.extend({}, defaults, opts);
+        return this.each(function() {
+            var $this = $(this);
+
+            $this
+            .on(startEvent, function(event) {
+                var touches = event || event.originalEvent,
+                    touch = touches.touches ? touches.touches[0] : event;
+
+                start = {
+                    x: touch.clientX,
+                    y: touch.clientY,
+                    time: Date.now()
+                };
+
+                isScrolling = undefined;
+                delta = {};
+                opts.start.call(this, {touch: touch , start: start});
+
+            })
+            .on(moveEvent, function(event) {
+                var touches = event || event.originalEvent,
+                    touch = touches.touches ? touches.touches[0] : event;
+
+                if (touches && touches.length > 1 || event.scale && event.scale !== 1) return;
+                if(!start) return;
+
+                delta = {
+                    x: touch.clientX - start.x,
+                    y: touch.clientY - start.y
+                };
+
+                // set a flag which detemine the page is scrolling,
+                // purpose here is avoid that page can't scroll when you touch on the target which is on current function
+                if (typeof isScrolling == 'undefined') {
+                    isScrolling = isScrolling || Math.abs(delta.x) < Math.abs(delta.y);
+                }
+                if(!opts.enableVertical){
+                    if (isScrolling) return;
+                    event.preventDefault();
+                }
+                opts.move.call(this, {touch: touch, delta: delta});
+            })
+            .on(endEvent, function() {
+                if(!opts.enableVertical){
+                    if (isScrolling) return;
+                }
+                opts.end.call(this, {touch: {}, delta: delta, deltatime: Date.now() - start.time});
+            });
+        });
+    };
+
+})(window.Zepto || window.jQuery);
+
+
+/** 
+ * 根据cookie的键值获取cookie的值。
+ * @param {string} name cookie键值
+ * @return {string}
+ */
+function getCookie(name) {
+    var start = document.cookie.indexOf(name + '=');
+    var len = start + name.length + 1;
+    if ((!start) && (name != document.cookie.substring(0, name.length))) {
+        return undefined;
+    }
+    if (start == -1) return undefined;
+    var end = document.cookie.indexOf(';', len);
+    if (end == -1) end = document.cookie.length;
+    return decodeURIComponent(document.cookie.substring(len, end));
+};
+
+/** 
+ * 设置cookie的值。
+ * @param {string} name cookie键值
+ * @param {string} value  cookie值
+ * @param {number} expires  失效时间，以天计
+ * @param {string} [path]  设置cookie所在目录
+ * @param {string} [domain]  设置cookie所在域
+ * @param {string} [secure]  设置https only的cookie
+ */
+function setCookie(name, value, expires, path, domain, secure) {
+    expires = expires || 24 * 60 * 60 * 1000;
+    var expires_date = new Date((new Date()).getTime() + (expires));
+    document.cookie = name + '=' + encodeURIComponent(value) + ((expires) ? ';expires=' + expires_date.toGMTString() : '') + /*expires.toGMTString()*/
+        ((path) ? ';path=' + path : '') + ((domain) ? ';domain=' + domain : '') + ((secure) ? ';secure' : '');
+};
+
+/** 
+ * 根据cookie的键值移除cookie的值。
+ * @param {string} name cookie键值
+ * @return {string}
+ */
+function removeCookie(name, path, domain) {
+    if (getCookie(name)) document.cookie = name + '=' + ((path) ? ';path=' + path : '') + ((domain) ? ';domain=' + domain : '') + ';expires=Thu, 01-Jan-1970 00:00:01 GMT';
+};
+
+//Cookies.js
+
+
+loadash
+underscore
+
+
+毫秒设置
+var timeCount = function(){
+            setTimeout(function(){
+                // set the defination time
+                var endtime = new Date("2014/6/6 11:56:00");
+                var nowtime = new Date();
+                //the rest time
+                timeold = endtime.getTime() - nowtime.getTime();
+                //leftsecond = parseInt(timeold / 1000);
+                //a day's millisecond
+                var day_ms = 24 * 60 * 60 * 1000;
+                _d = timeold/day_ms;
+                d = Math.floor(_d)
+                _h = (_d - d)*24;
+                h = Math.floor(_h);
+                _m = (_h - h)*60;
+                m = Math.floor(_m);
+                _s = (_m - m)*60;
+                s = Math.floor(_s);
+                if(d<10){d = '0' + d}
+                if(h<10){h = '0' + h}
+                if(m<10){m = '0' + m}
+                if(s<10){s = '0' + s}
+                //chang _ms to string
+                mm = _s - s
+                _ms = new String(_s - s);
+                ms = _ms.substr(2,2);
+                //d, hour, minute, second,millisecond
+                if(timeold <= 0){
+                    return
+                }
+                console.log(timeold,d,_h,m,s,mm,ms);
+                timeCount();
+                //$('.timecount_d').html(d);
+                //$('.timecount_h').html(h);
+                //$('.timecount_m').html(m);
+                //$('.timecount_s').html(s);
+                //$('.timecount_ms').html(ms);
+            },1)
+        }
