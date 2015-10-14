@@ -22,7 +22,12 @@ var basePath = {
 
 var paths = {
     src: basePath.src + basePath.dest,
-    sassSrc: basePath.src + basePath.dest + 'styles/sass/'
+    sassSrc: basePath.src + basePath.dest + 'styles/sass/',
+    watch: [
+        basePath.src  + 'samples/**/*.html',
+        basePath.src  + 'samples/**/*.css',
+        basePath.src + 'samples/**/*.js'
+    ]
 };
 
 // 注册compass 任务
@@ -52,6 +57,18 @@ gulp.task('compass', function(){
         .pipe(notify({message: '编译样式成功'}));
 });
 
+// Static server
+gulp.task('server', function() {
+    browserSync.init({
+        server: {
+            baseDir: basePath.src,
+            directory: true
+        }
+    });
+    gulp.watch(paths.watch).on('change', browserSync.reload);
+    gulp.watch(paths.sassSrc + '*.scss', ['compass']);
+});
+
 // 合并压缩JS & CSS
 gulp.task('html', function(){
     var assets = useref.assets();
@@ -74,16 +91,4 @@ gulp.task('copy', function(){
         .pipe(notify({message: '生成成功，查看dist目录'}));
 });
 
-// Static server
-gulp.task('server', function() {
-    browserSync.init({
-        server: {
-            baseDir: '.',
-            directory: true
-        }
-    });
-    gulp.watch([paths.src + '*.html', paths.src + 'styles/*.css', paths.src + 'scripts/*.js']).on('change', browserSync.reload);
-    gulp.watch(paths.sassSrc + '*.scss', ['compass']);
-});
-
-gulp.task('generate', ['html', 'copy']);
+// gulp.task('generate', ['html', 'copy']);
