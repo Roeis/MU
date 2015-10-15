@@ -71,20 +71,8 @@ gulp.task('server', function() {
     gulp.watch(paths.sassSrc + '*.scss', ['compass']);
 });
 
-// 合并压缩JS & CSS
-gulp.task('html', function(){
-    var assets = useref.assets();
-
-    return gulp.src(paths.src + '*.html')
-        .pipe(assets)
-        .pipe(gulpif('*.js', uglify()))
-        .pipe(gulpif('*.css', minifyCss()))
-        .pipe(assets.restore())
-        .pipe(useref())
-        .pipe(gulp.dest(paths.src + 'dist'));
-});
-
-gulp.task('dist', function(){
+//
+gulp.task('jsmin', function(){
     return gulp.src([
             'dist/mu.js',
             'dist/mu.touch.js',
@@ -101,6 +89,18 @@ gulp.task('dist', function(){
         .pipe(gulp.dest('dist/'));
 });
 
+gulp.task('cssmin', function(){
+    return gulp.src('dist/mu.css')
+        .pipe(gulp.dest('dist/'))
+        .pipe(minifyCss())
+        .pipe(rename({
+            extname: '.min.css'
+        }))
+        .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('min', ['jsmin', 'cssmin']);
+
 // copy 图片
 gulp.task('copy', function(){
     return gulp.src(paths.src + 'images/*.png')
@@ -109,5 +109,16 @@ gulp.task('copy', function(){
         }))
         .pipe(notify({message: '生成成功，查看dist目录'}));
 });
+// 合并压缩JS & CSS
+gulp.task('html', function(){
+    var assets = useref.assets();
 
+    return gulp.src(paths.src + '*.html')
+        .pipe(assets)
+        .pipe(gulpif('*.js', uglify()))
+        .pipe(gulpif('*.css', minifyCss()))
+        .pipe(assets.restore())
+        .pipe(useref())
+        .pipe(gulp.dest(paths.src + 'dist'));
+});
 // gulp.task('generate', ['html', 'copy']);
