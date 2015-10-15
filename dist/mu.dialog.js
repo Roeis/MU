@@ -36,6 +36,7 @@
     };
 
     var isScrollPrevented = window.mu.util.isScrollPrevented;
+    var needAdaptDevices = window.mu.detect.isMeizu || window.mu.detect.isSamsung;
 
     var $body = $(document.body),
         // bgShowed = 0,
@@ -160,16 +161,27 @@
         // when the dialog is unvisible, its properties still can be read
         // such as height, width etc;
         _show: function($obj, cls, callback) {
-            $obj.addClass('mu-visible').oneAnimationEnd(cls, function() {
-                $obj.removeClass(cls);
+
+            if(needAdaptDevices){
+                $obj.addClass('mu-visible').show();
                 callback && callback();
-            });
+            }else{
+                $obj.addClass('mu-visible').oneAnimationEnd(cls, function() {
+                    $obj.removeClass(cls);
+                    callback && callback();
+                });
+            }
         },
         _hide: function($obj, cls, callback) {
-            $obj.oneAnimationEnd(cls, function() {
-                $obj.removeClass('mu-visible').removeClass(cls);
+            if(needAdaptDevices){
+                $obj.hide();
                 callback && callback();
-            });
+            }else{
+                $obj.oneAnimationEnd(cls, function() {
+                    $obj.removeClass('mu-visible').removeClass(cls);
+                    callback && callback();
+                });
+            }
         }
     };
     

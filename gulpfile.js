@@ -11,6 +11,8 @@ var useref = require('gulp-useref');
 var gulpif = require('gulp-if');
 var notify = require('gulp-notify');
 
+var concat = require('gulp-concat');
+var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
 var copy = require('gulp-copy');
@@ -80,6 +82,23 @@ gulp.task('html', function(){
         .pipe(assets.restore())
         .pipe(useref())
         .pipe(gulp.dest(paths.src + 'dist'));
+});
+
+gulp.task('dist', function(){
+    return gulp.src([
+            'dist/mu.js',
+            'dist/mu.touch.js',
+            'dist/mu.dialog.js',
+            'dist/mu.slider.js',
+            'dist/mu.page.js'
+        ])
+        .pipe(concat('./mu.latest.js'))
+        .pipe(gulp.dest('dist/'))
+        .pipe(uglify())
+        .pipe(rename({
+            extname: '.min.js'
+        }))
+        .pipe(gulp.dest('dist/'));
 });
 
 // copy 图片
