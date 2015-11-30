@@ -9,8 +9,8 @@
 (function(global, $, undefined) {
     'use strict';
     var mu = global.mu = global.mu || {};
-     
-    mu.version = '2.4.7';
+
+    mu.version = '2.4.8';
     mu.$doc = $(document);
     mu.$win = $(window);
     mu.hasTouch = 'ontouchstart' in window;
@@ -18,7 +18,7 @@
 })(this, window.Zepto || window.jQuery);
 
 /**
- * known issue: lots of css3 animation function didn't work in 
+ * known issue: lots of css3 animation function didn't work in
  * meizu's self browser, so suggest alert a message in meizu to ignore
  * it is not well cost to fix those issue in meizu
  */
@@ -54,7 +54,7 @@
         /**
          * 获取querystring
          * @param  {String} name
-         * @return {String} 
+         * @return {String}
          */
         getQueryString: function(name) {
             var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i'),
@@ -82,7 +82,7 @@
         },
         /**
          * encode 内容
-         * @param  {string} str 
+         * @param  {string} str
          */
         htmlEncode: function(str) {
             var div = document.createElement('div'),
@@ -92,7 +92,7 @@
         },
         /**
          * decode 内容
-         * @param  {string} str 
+         * @param  {string} str
          */
         htmlDecode: function(str) {
             var div = document.createElement('div');
@@ -156,8 +156,8 @@
 
         /**
          * [extend description]
-         * @param  {Object} obj 
-         * @return {Object}     
+         * @param  {Object} obj
+         * @return {Object}
          */
         extend: function(obj){
             for (var index = 1; index < arguments.length; index++) {
@@ -172,7 +172,7 @@
         /**
          * 动态加载样式
          * @param  {String} url 样式URL
-         * @return 
+         * @return
          */
         requireCss: function(url){
             var node = document.createElement('link'),
@@ -352,9 +352,9 @@
     window.animationEvents = animationEvents;
     /**
      * callback after adding one css animation that ends
-     * @param  {String}   cls      
-     * @param  {Function} callback 
-     * @return {Object}            
+     * @param  {String}   cls
+     * @param  {Function} callback
+     * @return {Object}
      */
     $.fn.oneAnimationEnd = function (cls, callback){
         $(this[0]).addClass(cls).one(fnNames.animationEnd, function(){
@@ -362,7 +362,7 @@
         });
         return this;
     };
-    
+
 })(window.Zepto || window.jQuery);
 
 /**
@@ -442,6 +442,7 @@
     };
 
 })(window.Zepto || window.jQuery);
+
 /**
  * -------------------------------------------------------------
  * Copyright (c) 2014 All rights reserved.
@@ -909,17 +910,17 @@
             self.looptime = null;
             self.index = 0;             // 起始序号
             self.clones = 0;            // 克隆数
-            
+
             if(self.opts.isLoop){
                 self.index = 1;
                 self.clones = 2;
                 self.max += self.clones;
             }
 
-            self.$children.wrapAll('<div class="slider-wrap"></div>');
+            self.$children.wrapAll('<div class="mu-slider-wrap"></div>');
             // maintain each instance standlone, when initialize lot of instance with a same class
             // in jump function, the active target is self.$slider, and this would be current target's parent
-            self.$slider = self.$children.closest('.slider-wrap');
+            self.$slider = self.$children.closest('.mu-slider-wrap');
 
             // in vertical mode , it resolve a different value
             self._setHeight();
@@ -978,14 +979,14 @@
                 self.index = this.clones - 1;
                 // return;
             }
-            
+
             self.looptime = setTimeout(function(){
                 // Plus index before transform, attention when loop
                 self.index ++;
                 self.jump(self.index);
                 self.loop();
             }, 3000);
-            
+
         },
         stopLoop: function(){
             clearTimeout(this.looptime);
@@ -1156,7 +1157,7 @@
                 if(self.opts.isLoop){
                     if(self.index === 0) self.index = self.max - self.clones;
                     if(self.index === self.max - 1) self.index = 1;
-                    
+
                     self._jump(self.index);
                     // because add clone, current Index minus one
                     self.curIndex = self.index - 1;
@@ -1194,6 +1195,7 @@
     };
 
 })(window.Zepto || window.jQuery);
+
 /**
  * --------------------------------------------------------
  * Copyright (c) 2015 All rights reserved.

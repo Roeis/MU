@@ -42,17 +42,17 @@
             self.looptime = null;
             self.index = 0;             // 起始序号
             self.clones = 0;            // 克隆数
-            
+
             if(self.opts.isLoop){
                 self.index = 1;
                 self.clones = 2;
                 self.max += self.clones;
             }
 
-            self.$children.wrapAll('<div class="slider-wrap"></div>');
+            self.$children.wrapAll('<div class="mu-slider-wrap"></div>');
             // maintain each instance standlone, when initialize lot of instance with a same class
             // in jump function, the active target is self.$slider, and this would be current target's parent
-            self.$slider = self.$children.closest('.slider-wrap');
+            self.$slider = self.$children.closest('.mu-slider-wrap');
 
             // in vertical mode , it resolve a different value
             self._setHeight();
@@ -111,14 +111,14 @@
                 self.index = this.clones - 1;
                 // return;
             }
-            
+
             self.looptime = setTimeout(function(){
                 // Plus index before transform, attention when loop
                 self.index ++;
                 self.jump(self.index);
                 self.loop();
             }, 3000);
-            
+
         },
         stopLoop: function(){
             clearTimeout(this.looptime);
@@ -289,7 +289,7 @@
                 if(self.opts.isLoop){
                     if(self.index === 0) self.index = self.max - self.clones;
                     if(self.index === self.max - 1) self.index = 1;
-                    
+
                     self._jump(self.index);
                     // because add clone, current Index minus one
                     self.curIndex = self.index - 1;

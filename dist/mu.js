@@ -9,8 +9,8 @@
 (function(global, $, undefined) {
     'use strict';
     var mu = global.mu = global.mu || {};
-     
-    mu.version = '2.4.7';
+
+    mu.version = '2.4.8';
     mu.$doc = $(document);
     mu.$win = $(window);
     mu.hasTouch = 'ontouchstart' in window;
@@ -18,7 +18,7 @@
 })(this, window.Zepto || window.jQuery);
 
 /**
- * known issue: lots of css3 animation function didn't work in 
+ * known issue: lots of css3 animation function didn't work in
  * meizu's self browser, so suggest alert a message in meizu to ignore
  * it is not well cost to fix those issue in meizu
  */
@@ -54,7 +54,7 @@
         /**
          * 获取querystring
          * @param  {String} name
-         * @return {String} 
+         * @return {String}
          */
         getQueryString: function(name) {
             var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i'),
@@ -82,7 +82,7 @@
         },
         /**
          * encode 内容
-         * @param  {string} str 
+         * @param  {string} str
          */
         htmlEncode: function(str) {
             var div = document.createElement('div'),
@@ -92,7 +92,7 @@
         },
         /**
          * decode 内容
-         * @param  {string} str 
+         * @param  {string} str
          */
         htmlDecode: function(str) {
             var div = document.createElement('div');
@@ -156,8 +156,8 @@
 
         /**
          * [extend description]
-         * @param  {Object} obj 
-         * @return {Object}     
+         * @param  {Object} obj
+         * @return {Object}
          */
         extend: function(obj){
             for (var index = 1; index < arguments.length; index++) {
@@ -172,7 +172,7 @@
         /**
          * 动态加载样式
          * @param  {String} url 样式URL
-         * @return 
+         * @return
          */
         requireCss: function(url){
             var node = document.createElement('link'),
@@ -352,9 +352,9 @@
     window.animationEvents = animationEvents;
     /**
      * callback after adding one css animation that ends
-     * @param  {String}   cls      
-     * @param  {Function} callback 
-     * @return {Object}            
+     * @param  {String}   cls
+     * @param  {Function} callback
+     * @return {Object}
      */
     $.fn.oneAnimationEnd = function (cls, callback){
         $(this[0]).addClass(cls).one(fnNames.animationEnd, function(){
@@ -362,7 +362,7 @@
         });
         return this;
     };
-    
+
 })(window.Zepto || window.jQuery);
 
 /**
