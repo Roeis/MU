@@ -71,7 +71,7 @@
                 isScrolling = isScrolling || Math.abs(delta.x) < Math.abs(delta.y);
             }
 
-            if (!isScrolling) {
+            if (!isScrolling && window.mu.detect.isMobile) {
                 //issue: preventDefault to fire the touchmove and touchend event
                 event.preventDefault();
             }
@@ -108,7 +108,7 @@
         }
     };
 
-    var isMobile   = window.mu ? window.mu.detect.isMobile : true,
+    var isMobile   = window.mu.detect.isMobile,
         startEvent  = isMobile ? 'touchstart' : 'mousedown',
         moveEvent   = isMobile ? 'touchmove' : 'mousemove',
         endEvent    = isMobile ? 'touchend' : 'mouseup',

@@ -10,7 +10,7 @@
     'use strict';
     var mu = global.mu = global.mu || {};
 
-    mu.version = '2.4.8';
+    mu.version = '2.4.9';
     mu.$doc = $(document);
     mu.$win = $(window);
     mu.hasTouch = 'ontouchstart' in window;
@@ -516,7 +516,7 @@
                 isScrolling = isScrolling || Math.abs(delta.x) < Math.abs(delta.y);
             }
 
-            if (!isScrolling) {
+            if (!isScrolling && window.mu.detect.isMobile) {
                 //issue: preventDefault to fire the touchmove and touchend event
                 event.preventDefault();
             }
@@ -553,7 +553,7 @@
         }
     };
 
-    var isMobile   = window.mu ? window.mu.detect.isMobile : true,
+    var isMobile   = window.mu.detect.isMobile,
         startEvent  = isMobile ? 'touchstart' : 'mousedown',
         moveEvent   = isMobile ? 'touchmove' : 'mousemove',
         endEvent    = isMobile ? 'touchend' : 'mouseup',
