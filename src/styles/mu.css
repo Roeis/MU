@@ -8,9 +8,9 @@
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.8);
   -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+          backface-visibility: hidden;
   -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
+          transform-style: preserve-3d;
 }
 
 .mu-dialog {
@@ -18,9 +18,9 @@
   visibility: hidden;
   z-index: 1000;
   -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+          backface-visibility: hidden;
   -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
+          transform-style: preserve-3d;
 }
 
 .mu-visible {
@@ -69,6 +69,78 @@
   border-right: 1px solid #EEE;
 }
 
+.mu-toast-bg {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.mu-toast {
+  position: fixed;
+  z-index: 3;
+  width: 130px;
+  height: 130px;
+  top: 180px;
+  left: 50%;
+  margin-left: -65px;
+  text-align: center;
+  border-radius: 5px;
+  color: #fff;
+  background-color: rgba(40, 40, 40, 0.75);
+}
+.mu-toast .mu-toast-content {
+  position: absolute;
+  bottom: 0;
+  height: 40px;
+  width: 100%;
+}
+
+.mu-one-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 1px;
+  background: #fff;
+}
+.mu-one-loading:before {
+  position: absolute;
+  content: '';
+  width: 14px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.4);
+  left: 10px;
+  top: -1px;
+  -webkit-transform: rotate(30deg);
+          transform: rotate(30deg);
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+}
+
+@-webkit-keyframes mu-rotate-360 {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes mu-rotate-360 {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
 .mu-slider-wrap {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -103,8 +175,8 @@
   }
 }
 .mu-fadeIn {
-  -webkit-animation: fadeIn .4s ease;
-  animation: fadeIn .4s ease;
+  -webkit-animation: fadeIn .3s ease;
+  animation: fadeIn .3s ease;
 }
 
 @-webkit-keyframes fadeOut {
@@ -124,8 +196,8 @@
   }
 }
 .mu-fadeOut {
-  -webkit-animation: fadeOut .4s ease;
-  animation: fadeOut .4s ease;
+  -webkit-animation: fadeOut .3s ease;
+  animation: fadeOut .3s ease;
 }
 
 @-webkit-keyframes fadeInDown {
@@ -151,8 +223,8 @@
   }
 }
 .mu-fadeInDown {
-  -webkit-animation: fadeInDown .4s ease;
-  animation: fadeInDown .4s ease;
+  -webkit-animation: fadeInDown .3s ease;
+  animation: fadeInDown .3s ease;
 }
 
 @-webkit-keyframes fadeOutDown {
@@ -205,8 +277,8 @@
   }
 }
 .mu-fadeInUp {
-  -webkit-animation: fadeInUp .4s ease;
-  animation: fadeInUp .4s ease;
+  -webkit-animation: fadeInUp .3s ease;
+  animation: fadeInUp .3s ease;
 }
 
 @-webkit-keyframes fadeOutUp {
@@ -232,8 +304,8 @@
   }
 }
 .mu-fadeOutUp {
-  -webkit-animation: fadeOutUp .4s ease;
-  animation: fadeOutUp .4s ease;
+  -webkit-animation: fadeOutUp .3s ease;
+  animation: fadeOutUp .3s ease;
 }
 
 @-webkit-keyframes mu-scaleDownIn {
@@ -259,8 +331,8 @@
   }
 }
 .mu-scaleDownIn {
-  -webkit-animation: mu-scaleDownIn .4s ease;
-  animation: mu-scaleDownIn .4s ease;
+  -webkit-animation: mu-scaleDownIn .3s ease;
+  animation: mu-scaleDownIn .3s ease;
 }
 
 @-webkit-keyframes scaleDownOut {
@@ -283,8 +355,8 @@
   }
 }
 .mu-scaleDownOut {
-  -webkit-animation: scaleDownOut .4s ease;
-  animation: scaleDownOut .4s ease;
+  -webkit-animation: scaleDownOut .3s ease;
+  animation: scaleDownOut .3s ease;
 }
 
 @-webkit-keyframes mu-scaleUpIn {
@@ -310,8 +382,8 @@
   }
 }
 .mu-scaleUpIn {
-  -webkit-animation: mu-scaleUpIn .4s ease;
-  animation: mu-scaleUpIn .4s ease;
+  -webkit-animation: mu-scaleUpIn .3s ease;
+  animation: mu-scaleUpIn .3s ease;
 }
 
 @-webkit-keyframes fadeInRight {
@@ -337,8 +409,8 @@
   }
 }
 .mu-fadeInRight {
-  -webkit-animation: fadeInRight .4s ease;
-  animation: fadeInRight .4s ease;
+  -webkit-animation: fadeInRight .3s ease;
+  animation: fadeInRight .3s ease;
 }
 
 @-webkit-keyframes fadeOutRight {
@@ -364,8 +436,8 @@
   }
 }
 .mu-fadeOutRight {
-  -webkit-animation: fadeOutRight .4s ease;
-  animation: fadeOutRight .4s ease;
+  -webkit-animation: fadeOutRight .3s ease;
+  animation: fadeOutRight .3s ease;
 }
 
 .mu-page {
@@ -395,23 +467,23 @@
 }
 
 .mu-moveToTop {
-  -webkit-animation: moveToTop .4s ease both;
-  animation: moveToTop .4s ease both;
+  -webkit-animation: moveToTop .3s ease both;
+  animation: moveToTop .3s ease both;
 }
 
 .mu-moveFromTop {
-  -webkit-animation: moveFromTop .4s ease both;
-  animation: moveFromTop .4s ease both;
+  -webkit-animation: moveFromTop .3s ease both;
+  animation: moveFromTop .3s ease both;
 }
 
 .mu-moveToBottom {
-  -webkit-animation: moveToBottom .4s ease both;
-  animation: moveToBottom .4s ease both;
+  -webkit-animation: moveToBottom .3s ease both;
+  animation: moveToBottom .3s ease both;
 }
 
 .mu-moveFromBottom {
-  -webkit-animation: moveFromBottom .4s ease both;
-  animation: moveFromBottom .4s ease both;
+  -webkit-animation: moveFromBottom .3s ease both;
+  animation: moveFromBottom .3s ease both;
 }
 
 @-webkit-keyframes moveToTop {
@@ -459,23 +531,23 @@
   }
 }
 .mu-moveToLeft {
-  -webkit-animation: moveToLeft .4s ease both;
-  animation: moveToLeft .4s ease both;
+  -webkit-animation: moveToLeft .3s ease both;
+  animation: moveToLeft .3s ease both;
 }
 
 .mu-moveFromLeft {
-  -webkit-animation: moveFromLeft .4s ease both;
-  animation: moveFromLeft .4s ease both;
+  -webkit-animation: moveFromLeft .3s ease both;
+  animation: moveFromLeft .3s ease both;
 }
 
 .mu-moveToRight {
-  -webkit-animation: moveToRight .4s ease both;
-  animation: moveToRight .4s ease both;
+  -webkit-animation: moveToRight .3s ease both;
+  animation: moveToRight .3s ease both;
 }
 
 .mu-moveFromRight {
-  -webkit-animation: moveFromRight .4s ease both;
-  animation: moveFromRight .4s ease both;
+  -webkit-animation: moveFromRight .3s ease both;
+  animation: moveFromRight .3s ease both;
 }
 
 @-webkit-keyframes moveToLeft {

@@ -10,14 +10,12 @@
 (function($) {
     'use strict';
 
-    var option = {
-        list: null,
-        loading: null,
-        loaded: null
-    };
-
-    var total = 0,
-        index = 0;
+    var index = 0,
+        option = {
+            list: null,
+            loading: null,
+            loaded: null
+        };
 
     var core = {
         init: function(opts){
@@ -34,14 +32,34 @@
         load: function(){
             var self = this;
             if (index >= option.list.length ) {
+                self._loaded();
                 option.loaded.call(self);
                 return;
             }
             this.loadImg(option.list[index], function(){
+                self._loading(index);
                 option.loading.call(self, index);
                 index ++;
                 self.load();
             });
+        },
+
+        _loaded: function(){
+            var self = this;
+            setTimeout(function(){
+                self.$view.addClass('mu-fadeOut').one(window.animationEvents.animationEnd, function(){
+                    self.$view.hide();
+                    if(!prevented){
+                        mu.util.recoverScroll();
+                    }
+                });
+            }, 1000);
+        },
+
+        _loading: function(index){
+            var num = (index/(imgList.length - 1) * 100).toFixed(0);
+            this.$view.find('.mu-preload-num').text(num + '%');
+            this.$view.find('.mu-preload-line').css('width', parseInt(num * 2));
         },
 
         loadImg: function(imgSrc, callback){
@@ -55,30 +73,11 @@
                 callback();
                 image.onerror = null;
             };
-        },
-        jumpNum: function(){
-            this.jumpIndex = 0;
-            this.jumpNumber();
-        },
-        jumpNumber: function(callback){
-            var self = this;
-            if(self.jumpIndex > 90){
-                console.log('number end');
-                return;
-            }
-            setTimeout(function(){
-                self.jumpIndex ++;
-                $('.mu-preload').find('.mu-preload-line').css('width', parseInt(self.jumpIndex));
-                $('.mu-preload').find('.mu-preload-num').text(self.jumpIndex + '%');
-                self.jumpNumber();
-            }, 20);
         }
     };
 
-    // make a fade one
-    // 伪装一个假的loading 充当preLoading,
+    // 伪装一个假的loading 充当preLoading
     // 再包一层读取图片的
-    // 
     // 方案: 读一半，另一半在进入之后再读
 
     var imgList = [
@@ -90,31 +89,31 @@
             'http://img.zcool.cn/community/01777f55d127bb6ac725baa0d373c7.jpg'
         ];
 
-    // core.jumpNum();
-    // 
     var prevented = mu.util.isScrollPrevented;
     mu.util.preventScroll();
 
     core.init({
         list: imgList,
-        loading: function(index){
-            var num = (index/(imgList.length - 1) * 100).toFixed(0);
-            this.$view.find('.mu-preload-num').text(num + '%');
-            this.$view.find('.mu-preload-line').css('width', parseInt(num * 2));
-        },
-        loaded: function(){
-            var self = this;
-            setTimeout(function(){
-                self.$view.addClass('mu-fadeOut').one(window.animationEvents.animationEnd, function(){
-                    self.$view.hide();
-                    if(!prevented){
-                        mu.util.recoverScroll();
-                    }
-                });
-            }, 800);
-        }
+        loading: function(index){},
+        loaded: function(){}
     });
-    //
+
+    $(window).on('hashchange', function (e) {
+        // newURL
+        // oldURL
+        if (/#.+/gi.test(e.newURL)) {
+            return;
+        }
+        var $top = stack.pop();
+        if (!$top) {
+            return;
+        }
+        $top.addClass('slideOut').on('animationend', function () {
+            $top.remove();
+        }).on('webkitAnimationEnd', function () {
+            $top.remove();
+        });
+    });
 
 
 })(window.Zepto || window.jQuery);

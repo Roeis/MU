@@ -8,18 +8,14 @@
     visibility: hidden;
     z-index: 999;
     background-color: rgba(0, 0, 0, .8);
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
 }
 .mu-dialog{
     position: fixed;
     visibility: hidden;
     z-index: 1000;
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
 }
 .mu-visible{
@@ -64,6 +60,61 @@
   }
 }
 
+.mu-toast-bg{
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.mu-toast{
+  $w: 130px;
+  position: fixed;
+  z-index: 3;
+  width: $w;
+  height: $w;
+  top: 180px;
+  left: 50%;
+  margin-left: -$w /2;
+  text-align: center;
+  border-radius: 5px;
+  color: #fff;
+  background-color: rgba(40, 40, 40, .75);
+  .mu-toast-content{
+    position: absolute;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+  }
+}
+.mu-one-loading{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 1px;
+  background: #fff;
+  &:before{
+    position: absolute;
+    content: '';
+    width: 14px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, .4);
+    left: 10px;
+    top: -1px;
+    transform : rotate(30deg);
+    transform-origin: 0 0;
+  }
+}
+
+
+@keyframes mu-rotate-360 {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+}
+
 .mu-slider-wrap{
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -89,8 +140,8 @@
   100% {opacity: 1;}
 }
 .mu-fadeIn {
-  -webkit-animation: fadeIn .4s ease;
-  animation: fadeIn .4s ease;
+  -webkit-animation: fadeIn .3s ease;
+  animation: fadeIn .3s ease;
 }
 @-webkit-keyframes fadeOut {
   0% {opacity: 1;}
@@ -101,8 +152,8 @@
   100% {opacity: 0;}
 }
 .mu-fadeOut {
-  -webkit-animation: fadeOut .4s ease;
-  animation: fadeOut .4s ease;
+  -webkit-animation: fadeOut .3s ease;
+  animation: fadeOut .3s ease;
 }
 @-webkit-keyframes fadeInDown {
     0% {opacity: 0;-webkit-transform: translateY(30px);}
@@ -113,8 +164,8 @@
     100% {opacity: 1;transform: translateY(0);}
 }
 .mu-fadeInDown {
-  -webkit-animation: fadeInDown .4s ease;
-  animation: fadeInDown .4s ease;
+  -webkit-animation: fadeInDown .3s ease;
+  animation: fadeInDown .3s ease;
 }
 @-webkit-keyframes fadeOutDown {
     0% {opacity: 1;-webkit-transform: translateY(0);}
@@ -137,8 +188,8 @@
     100% {opacity: 1;transform: translateY(0);}
 }
 .mu-fadeInUp {
-  -webkit-animation: fadeInUp .4s ease;
-  animation: fadeInUp .4s ease;
+  -webkit-animation: fadeInUp .3s ease;
+  animation: fadeInUp .3s ease;
 }
 @-webkit-keyframes fadeOutUp {
     0% {opacity: 1;-webkit-transform: translateY(0);}
@@ -149,8 +200,8 @@
     100% {opacity: 0;transform: translateY(-30px);}
 }
 .mu-fadeOutUp {
-  -webkit-animation: fadeOutUp .4s ease;
-  animation: fadeOutUp .4s ease;
+  -webkit-animation: fadeOutUp .3s ease;
+  animation: fadeOutUp .3s ease;
 }
 @-webkit-keyframes mu-scaleDownIn {
     0% { opacity: 0; -webkit-transform: scale3d(1.2, 1.2, 1); }
@@ -162,8 +213,8 @@
     100% { opacity: 1; -webkit-transform: scale3d(1, 1, 1); transform: scale3d(1, 1, 1); }
 }
 .mu-scaleDownIn {
-    -webkit-animation: mu-scaleDownIn .4s ease;
-    animation: mu-scaleDownIn .4s ease;
+    -webkit-animation: mu-scaleDownIn .3s ease;
+    animation: mu-scaleDownIn .3s ease;
 }
 @-webkit-keyframes scaleDownOut {
     0% { opacity: 1; }
@@ -175,8 +226,8 @@
     100% { opacity: 0; -webkit-transform: scale3d(0.8, 0.8, 1); transform: scale3d(0.8, 0.8, 1); }
 }
 .mu-scaleDownOut {
-    -webkit-animation: scaleDownOut .4s ease;
-    animation: scaleDownOut .4s ease;
+    -webkit-animation: scaleDownOut .3s ease;
+    animation: scaleDownOut .3s ease;
 }
 @-webkit-keyframes mu-scaleUpIn {
     0% { opacity: 0; -webkit-transform: scale3d(0, 0, 1); }
@@ -188,8 +239,8 @@
     100% { opacity: 1; -webkit-transform: scale3d(1, 1, 1); transform: scale3d(1, 1, 1); }
 }
 .mu-scaleUpIn {
-    -webkit-animation: mu-scaleUpIn .4s ease;
-    animation: mu-scaleUpIn .4s ease;
+    -webkit-animation: mu-scaleUpIn .3s ease;
+    animation: mu-scaleUpIn .3s ease;
 }
 @-webkit-keyframes fadeInRight {
   0% {opacity: 0;-webkit-transform: translateX(30px);}
@@ -200,8 +251,8 @@
   100% {opacity: 1;transform: translateX(0);}
 }
 .mu-fadeInRight {
-  -webkit-animation: fadeInRight .4s ease;
-  animation: fadeInRight .4s ease;
+  -webkit-animation: fadeInRight .3s ease;
+  animation: fadeInRight .3s ease;
 }
 
 @-webkit-keyframes fadeOutRight {
@@ -213,8 +264,8 @@
   100% {opacity: 0;transform: translateX(30px);}
 }
 .mu-fadeOutRight {
-  -webkit-animation: fadeOutRight .4s ease;
-  animation: fadeOutRight .4s ease;
+  -webkit-animation: fadeOutRight .3s ease;
+  animation: fadeOutRight .3s ease;
 }
 
 //page transition
@@ -245,23 +296,23 @@
 
 
 .mu-moveToTop {
-  -webkit-animation: moveToTop .4s ease both;
-  animation: moveToTop .4s ease both;
+  -webkit-animation: moveToTop .3s ease both;
+  animation: moveToTop .3s ease both;
 }
 
 .mu-moveFromTop {
-  -webkit-animation: moveFromTop .4s ease both;
-  animation: moveFromTop .4s ease both;
+  -webkit-animation: moveFromTop .3s ease both;
+  animation: moveFromTop .3s ease both;
 }
 
 .mu-moveToBottom {
-  -webkit-animation: moveToBottom .4s ease both;
-  animation: moveToBottom .4s ease both;
+  -webkit-animation: moveToBottom .3s ease both;
+  animation: moveToBottom .3s ease both;
 }
 
 .mu-moveFromBottom {
-  -webkit-animation: moveFromBottom .4s ease both;
-  animation: moveFromBottom .4s ease both;
+  -webkit-animation: moveFromBottom .3s ease both;
+  animation: moveFromBottom .3s ease both;
 }
 
 @-webkit-keyframes moveToTop {
@@ -290,23 +341,23 @@
 }
 
 .mu-moveToLeft {
-  -webkit-animation: moveToLeft .4s ease both;
-  animation: moveToLeft .4s ease both;
+  -webkit-animation: moveToLeft .3s ease both;
+  animation: moveToLeft .3s ease both;
 }
 
 .mu-moveFromLeft {
-  -webkit-animation: moveFromLeft .4s ease both;
-  animation: moveFromLeft .4s ease both;
+  -webkit-animation: moveFromLeft .3s ease both;
+  animation: moveFromLeft .3s ease both;
 }
 
 .mu-moveToRight {
-  -webkit-animation: moveToRight .4s ease both;
-  animation: moveToRight .4s ease both;
+  -webkit-animation: moveToRight .3s ease both;
+  animation: moveToRight .3s ease both;
 }
 
 .mu-moveFromRight {
-  -webkit-animation: moveFromRight .4s ease both;
-  animation: moveFromRight .4s ease both;
+  -webkit-animation: moveFromRight .3s ease both;
+  animation: moveFromRight .3s ease both;
 }
 
 @-webkit-keyframes moveToLeft {

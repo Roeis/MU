@@ -7,10 +7,17 @@
     background: #FFF;
     z-index: 3;
 }
+.mu-preload-logo{
+    width: 150px;
+    height: 80px;
+    margin: 0 auto;
+    background: url('http://www.hujiang.com/2010/images/default2015/logo.png') no-repeat;
+    background-size: 100% auto;
+}
 .mu-preload-line{
     height: 5px;
     width: 0;
-    background-color: #F50;
+    background-color: #9F0;
     -webkit-transition: width .3s ease;
     transition: width .3s ease;
 }

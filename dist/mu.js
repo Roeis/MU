@@ -3,14 +3,14 @@
  * Copyright (c) 2015 All rights reserved.
  * @version: 2.0.0
  * @author: roeis
- * @description: menghu mobile solution, mu-2.0.0.min.js
+ * @description: menghu mobile solution
  * --------------------------------------------------------
  */
 (function(global, $, undefined) {
     'use strict';
     var mu = global.mu = global.mu || {};
 
-    mu.version = '2.4.9';
+    mu.version = '2.4.10';
     mu.$doc = $(document);
     mu.$win = $(window);
     mu.hasTouch = 'ontouchstart' in window;
