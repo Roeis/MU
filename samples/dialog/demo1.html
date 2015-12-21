@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>example roeis</title>
+    <link rel="stylesheet" href="/src/styles/base.css">
+    <link rel="stylesheet" href="/src/styles/test.css">
+    <link rel="stylesheet" href="/src/styles/mu.css">
+    <style>
+    .test{
+        height: 100%;
+        width: 100%;
+        background-color: #eee;
+        overflow-y: scroll;
+        line-height: 30px;
+        -webkit-overflow-scrolling: touch;
+    }
+    .btm-opers{
+        bottom: 10px;
+    }
+    .tab-cont{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding-top: 88px;
+        margin-top: -88px;
+        z-index: 1;
+        overflow: hidden;
+    }
+    .wrapper{
+        height: 100%;
+        position: relative;
+    }
+    </style>
+</head>
+
+<body>
+    <header>
+        header fd
+    </header>
+    <div class="wrapper">
+        <div class="tab-cont">
+            <div class="test oversrcoll">
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+                asdfasdfasd <br>
+            </div>
+        </div>
+    </div>
+    <div class="btm-opers fix fix-bottom">
+        <div class="btn" id="open">open dialog</div>
+        <div class="btn" id="alert">alert</div>
+        <div class="btn" id="tip">tip</div>
+        <div class="btn" id="confirm">confirm</div>
+    </div>
+    
+    <!--             ios         android
+    weixin      通过        不通过
+    UC          通过
+    QQ -->
+
+    <!-- 微信回调 -->
+    <div class="weixin_success" style="display:none">
+        <div class="ws_head">
+            分享成功
+        </div>
+        <div class="ws_body">
+            <div class="ws_block">
+                <h3>更多精华，关注公众号</h3>
+                <div class="cf por">
+                    <div class="pic fl">
+                        <img src="http://i2.w.hjfile.cn/news/201507/201507301554820611.jpg" alt="华景德语">
+                    </div>
+                    <div class="info">
+                        <p class="p1">沪江德语</p>
+                        <p class="p2">微信号: hjgerman</p>
+                        <p class="p3">长按二维码，点击“识别图中二维码”即可关注我们~</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ws_block cf">
+                <h3>精品推荐</h3>
+                <div class="hotlinks">
+                    <a href="###">按二维码，点击“识别图中二维码”即图中二维图中二维可关注我们~</a>
+                    <a href="asdf">按二维码，点击“识别图中二维码”即可关注我们~</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
+    <script src="/vendor/zepto.min.js"></script>
+    <script src="/dist/mu.latest.min.js"></script>
+    <!-- <script src="/dist/mu.js"></script>
+    <script src="/dist/mu.touch.js"></script>
+    <script src="mu.dialog.js"></script> -->
+    <script>
+        // var $env = $('header');
+        // for(var key in mu.detect){
+        //     var html = key + ': '+ mu.detect[key] + '<br/>';
+        //     $env.append(html);
+        // }
+        window.dialog1 = new MuDialog('.weixin_success', {
+            preset: 'fadeInDown',
+            // showClass: 'mu-fadeInUp',
+            beforeOpen: function(){
+                // console.log('12 open before');
+            },
+            afterOpen: function(){
+                console.log('12 open after');
+            },
+            afterClose: function(){
+                console.log('close after');
+            }
+        });
+
+        $('<div class="sdf">sadfa</div>').muDialog({
+            afterOpen: function(){
+                
+            }
+        });
+
+        window.dialog2 = $.fn.muDialog.instances['0'];
+
+
+        $('#open').on('click', function() {
+            dialog1.open();
+        });
+        $('#alert').on('click', function(){
+            mu.util.alert('this is an alert');
+        });
+        $('#tip').on('click', function(){
+            mu.util.tip('this is a tip');
+        });
+        $('#confirm').on('click', function(){
+            // confirm
+            mu.util.confirm('你确定要修改吗?', function(flag){
+                if(flag){
+                    console.log('ok');
+                }else{
+                    console.log('false');
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>
