@@ -28,8 +28,7 @@
         preset: 'scaleDownIn',                  // 样式组合, scaleUpIn, scaleDownIn, fadeIn, fadeInUp, fadeInDown, fadeInRight
         isCenter: true,
         zIndex: 1000,                           // 大于这个值
-        opacity: 0.8,                           // 背景透明度
-        hard: false,                            // 生硬动画
+        opacity: 0.8,                          // 背景透明度
         beforeOpen: function() {},
         afterOpen: function() {},
         beforeClose: function() {},
@@ -63,8 +62,7 @@
             this.$bg = $(document.createElement('div')).addClass('mu-dialog-bglayer');
             this.$dialog = this.$el;
             this.isOpen = false;
-
-            this.$wrapper = $('<div id="muDialog-'+count+'"></div>');
+            this.$wrapper = $('<div id="muDialog-'+ count +'"></div>');
 
             count ++;
             // get the element, add class, not choose the way that wrap the element
@@ -112,7 +110,6 @@
         // event bind
         _bind: function() {
             var self = this;
-            
             //solve orientchange issue, it recalculate its size when screen changes
             //solve orientchange in chrome between others browsers
             //change orientchange event to resize
@@ -124,7 +121,7 @@
         _bindBG: function(){
             var self = this;
             if (self.options.isBgCloseable) {
-                self.$bg.on('tap.bg', function(event) {
+                self.$bg.on('click.bg', function(event) {
                     self.close();
                     event.stopPropagation();
                 });
@@ -132,9 +129,8 @@
         },
 
         _unbindBG: function(){
-            var self = this;
-            if (self.options.isBgCloseable) {
-                self.$bg.off('tap.bg');
+            if(this.options.isBgCloseable){
+                this.$bg.off('click.bg');
             }
         },
 
@@ -146,6 +142,7 @@
         open: function() {
             if (this.isOpen) return;
             this.isOpen = true;
+            // bgShowed ++;
             this.options.beforeOpen.call(this);
 
             this._show(this.$dialog, this.options.showClass, $.proxy(function() {
@@ -180,7 +177,7 @@
         // such as height, width etc;
         _show: function($obj, cls, callback) {
 
-            if(needAdaptDevices || this.options.hard){
+            if(needAdaptDevices){
                 $obj.addClass('mu-visible').show();
                 callback && callback();
             }else{
@@ -191,7 +188,7 @@
             }
         },
         _hide: function($obj, cls, callback) {
-            if(needAdaptDevices || this.options.hard){
+            if(needAdaptDevices){
                 $obj.hide();
                 callback && callback();
             }else{
@@ -240,11 +237,13 @@
 (function($, undefined){
     'use strict';
 
+    var mu = window.mu;
+
     var dialog = new window.MuDialog('<div class="mu-pop"></div>', {
         zIndex: 9999,
         isBgCloseable: false,
-        opacity: 0.6,
-        preset: 'fadeInDown'
+        opacity: 0.7,
+        preset: 'scaleUpIn'
     });
     /**
      * tip
@@ -254,7 +253,7 @@
      */
     mu.util.tip = function(string, timeout){
         var html = '<div class="mu-pop-title">提示</div><div class="mu-pop-content">' + string + '</div>';
-        
+
         dialog.html(html);
         dialog.open();
         setTimeout(function(){
@@ -271,10 +270,10 @@
                     '<div class="mu-btns">'+
                     '<div class="mu-btn mu-btn-ok">确定</div>'+
                     '</div>';
-        
+
         dialog.html(html);
         dialog.open();
-        $(document).on('tap', '.mu-btn-ok', function(){
+        $(document).on('click', '.mu-btn-ok', function(){
             dialog.close();
         });
     };
@@ -288,10 +287,10 @@
                     '<div class="mu-btn mu-btn-confirm">确定</div>' +
                     '<div class="mu-btn mu-btn-cancel">取消</div>'+
                     '</div>';
-        
+
         dialog.html(html);
         dialog.open();
-        $('.mu-btn').on('tap', function(){
+        $('.mu-btn').on('click', function(){
             dialog.close();
             var $this = $(this);
             if($this.hasClass('mu-btn-confirm')){

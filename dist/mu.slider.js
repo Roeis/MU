@@ -187,10 +187,9 @@
             });
 
             //solve orientchange issue, it recalculate its size when screen changes
-            var orientationEvt = 'onorientationchange' in window ? 'orientationchange' : 'resize';
-            window.addEventListener(orientationEvt, function() {
+            $(window).on('resize', function(){
                 self._jump(self.index);
-            }, false);
+            });
         },
         _clearTransition: function(){
             this.$slider.css({

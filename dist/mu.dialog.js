@@ -48,7 +48,7 @@
             'fadeInUp':  ['mu-fadeInUp','mu-fadeOutUp'],
             'fadeInRight':  ['mu-fadeInRight','mu-fadeOutRight'],
         };
-
+    var count = 0;
     Dialog.prototype = {
         constructor: Dialog,
         init: function() {
@@ -62,7 +62,9 @@
             this.$bg = $(document.createElement('div')).addClass('mu-dialog-bglayer');
             this.$dialog = this.$el;
             this.isOpen = false;
-            
+            this.$wrapper = $('<div id="muDialog-'+ count +'"></div>');
+
+            count ++;
             // get the element, add class, not choose the way that wrap the element
             // make this element fixed, add styles on what u want
             this.$dialog
@@ -75,7 +77,9 @@
                 'z-index': this.options.zIndex - 1,
                 'background-color': 'rgba(0,0,0,'+ this.options.opacity +')'
             });
-            $body.append(this.$bg).append(this.$dialog);
+
+            this.$wrapper.append(this.$bg).append(this.$dialog);
+            $body.append(this.$wrapper);
 
             this._adjust();
 
@@ -106,19 +110,28 @@
         // event bind
         _bind: function() {
             var self = this;
-            if (self.options.isBgCloseable) {
-                self.$bg.on('tap', function(event) {
-                    self.close();
-                    event.stopPropagation();
-                });
-            }
-            
             //solve orientchange issue, it recalculate its size when screen changes
             //solve orientchange in chrome between others browsers
             //change orientchange event to resize
             $(window).on('resize', function(){
                 self._adjust();
             });
+        },
+
+        _bindBG: function(){
+            var self = this;
+            if (self.options.isBgCloseable) {
+                self.$bg.on('click.bg', function(event) {
+                    self.close();
+                    event.stopPropagation();
+                });
+            }
+        },
+
+        _unbindBG: function(){
+            if(this.options.isBgCloseable){
+                this.$bg.off('click.bg');
+            }
         },
 
         html: function(html){
@@ -134,6 +147,7 @@
 
             this._show(this.$dialog, this.options.showClass, $.proxy(function() {
                 this.options.afterOpen.call(this);
+                this._bindBG();
                 window.mu.util.preventScroll();
             }, this));
             this._show(this.$bg, 'mu-fadeIn');
@@ -146,6 +160,7 @@
 
             this._hide(this.$dialog, this.options.hideClass, $.proxy(function() {
                 this.options.afterClose.call(this);
+                this._unbindBG();
                 this.isOpen = false;
                 if(!isScrollPrevented){
                     window.mu.util.recoverScroll();
@@ -238,7 +253,6 @@
      */
     mu.util.tip = function(string, timeout){
         var html = '<div class="mu-pop-title">提示</div><div class="mu-pop-content">' + string + '</div>';
-        $.extend(dialog.options, {});
 
         dialog.html(html);
         dialog.open();
@@ -256,7 +270,7 @@
                     '<div class="mu-btns">'+
                     '<div class="mu-btn mu-btn-ok">确定</div>'+
                     '</div>';
-        $.extend(dialog.options, {});
+
         dialog.html(html);
         dialog.open();
         $(document).on('click', '.mu-btn-ok', function(){
@@ -273,7 +287,7 @@
                     '<div class="mu-btn mu-btn-confirm">确定</div>' +
                     '<div class="mu-btn mu-btn-cancel">取消</div>'+
                     '</div>';
-        $.extend(dialog.options, {});
+
         dialog.html(html);
         dialog.open();
         $('.mu-btn').on('click', function(){
