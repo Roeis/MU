@@ -15,7 +15,6 @@ var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
-var copy = require('gulp-copy');
 
 var basePath = {
     src : './',
@@ -65,7 +64,9 @@ gulp.task('server', function() {
         server: {
             baseDir: basePath.src,
             directory: true
-        }
+        },
+        open: 'external',
+        logConnections: true
     });
     gulp.watch(paths.watch).on('change', browserSync.reload);
     gulp.watch(paths.sassSrc + '*.scss', ['compass']);
@@ -101,14 +102,6 @@ gulp.task('cssmin', function(){
 
 gulp.task('min', ['jsmin', 'cssmin']);
 
-// copy 图片
-gulp.task('copy', function(){
-    return gulp.src(paths.src + 'images/*.png')
-        .pipe(copy(paths.src + 'dist',{
-            prefix: 2
-        }))
-        .pipe(notify({message: '生成成功，查看dist目录'}));
-});
 // 合并压缩JS & CSS
 gulp.task('html', function(){
     var assets = useref.assets();

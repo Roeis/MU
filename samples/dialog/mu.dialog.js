@@ -28,7 +28,8 @@
         preset: 'scaleDownIn',                  // 样式组合, scaleUpIn, scaleDownIn, fadeIn, fadeInUp, fadeInDown, fadeInRight
         isCenter: true,
         zIndex: 1000,                           // 大于这个值
-        opacity: 0.8,                          // 背景透明度
+        opacity: 0.8,                           // 背景透明度
+        hard: false,                            // 生硬动画
         beforeOpen: function() {},
         afterOpen: function() {},
         beforeClose: function() {},
@@ -48,7 +49,7 @@
             'fadeInUp':  ['mu-fadeInUp','mu-fadeOutUp'],
             'fadeInRight':  ['mu-fadeInRight','mu-fadeOutRight'],
         };
-
+    var count = 0;
     Dialog.prototype = {
         constructor: Dialog,
         init: function() {
@@ -62,7 +63,10 @@
             this.$bg = $(document.createElement('div')).addClass('mu-dialog-bglayer');
             this.$dialog = this.$el;
             this.isOpen = false;
-            
+
+            this.$wrapper = $('<div id="muDialog-'+count+'"></div>');
+
+            count ++;
             // get the element, add class, not choose the way that wrap the element
             // make this element fixed, add styles on what u want
             this.$dialog
@@ -75,7 +79,9 @@
                 'z-index': this.options.zIndex - 1,
                 'background-color': 'rgba(0,0,0,'+ this.options.opacity +')'
             });
-            $body.append(this.$bg).append(this.$dialog);
+
+            this.$wrapper.append(this.$bg).append(this.$dialog);
+            $body.append(this.$wrapper);
 
             this._adjust();
 
@@ -106,12 +112,6 @@
         // event bind
         _bind: function() {
             var self = this;
-            if (self.options.isBgCloseable) {
-                self.$bg.on('tap', function(event) {
-                    self.close();
-                    event.stopPropagation();
-                });
-            }
             
             //solve orientchange issue, it recalculate its size when screen changes
             //solve orientchange in chrome between others browsers
@@ -119,6 +119,23 @@
             $(window).on('resize', function(){
                 self._adjust();
             });
+        },
+
+        _bindBG: function(){
+            var self = this;
+            if (self.options.isBgCloseable) {
+                self.$bg.on('tap.bg', function(event) {
+                    self.close();
+                    event.stopPropagation();
+                });
+            }
+        },
+
+        _unbindBG: function(){
+            var self = this;
+            if (self.options.isBgCloseable) {
+                self.$bg.off('tap.bg');
+            }
         },
 
         html: function(html){
@@ -129,11 +146,11 @@
         open: function() {
             if (this.isOpen) return;
             this.isOpen = true;
-            // bgShowed ++;
             this.options.beforeOpen.call(this);
 
             this._show(this.$dialog, this.options.showClass, $.proxy(function() {
                 this.options.afterOpen.call(this);
+                this._bindBG();
                 window.mu.util.preventScroll();
             }, this));
             this._show(this.$bg, 'mu-fadeIn');
@@ -146,6 +163,7 @@
 
             this._hide(this.$dialog, this.options.hideClass, $.proxy(function() {
                 this.options.afterClose.call(this);
+                this._unbindBG();
                 this.isOpen = false;
                 if(!isScrollPrevented){
                     window.mu.util.recoverScroll();
@@ -162,7 +180,7 @@
         // such as height, width etc;
         _show: function($obj, cls, callback) {
 
-            if(needAdaptDevices){
+            if(needAdaptDevices || this.options.hard){
                 $obj.addClass('mu-visible').show();
                 callback && callback();
             }else{
@@ -173,7 +191,7 @@
             }
         },
         _hide: function($obj, cls, callback) {
-            if(needAdaptDevices){
+            if(needAdaptDevices || this.options.hard){
                 $obj.hide();
                 callback && callback();
             }else{
@@ -222,13 +240,11 @@
 (function($, undefined){
     'use strict';
 
-    var mu = window.mu;
-
     var dialog = new window.MuDialog('<div class="mu-pop"></div>', {
         zIndex: 9999,
         isBgCloseable: false,
-        opacity: 0.7,
-        preset: 'scaleUpIn'
+        opacity: 0.6,
+        preset: 'fadeInDown'
     });
     /**
      * tip
@@ -238,8 +254,7 @@
      */
     mu.util.tip = function(string, timeout){
         var html = '<div class="mu-pop-title">提示</div><div class="mu-pop-content">' + string + '</div>';
-        $.extend(dialog.options, {});
-
+        
         dialog.html(html);
         dialog.open();
         setTimeout(function(){
@@ -256,10 +271,10 @@
                     '<div class="mu-btns">'+
                     '<div class="mu-btn mu-btn-ok">确定</div>'+
                     '</div>';
-        $.extend(dialog.options, {});
+        
         dialog.html(html);
         dialog.open();
-        $(document).on('click', '.mu-btn-ok', function(){
+        $(document).on('tap', '.mu-btn-ok', function(){
             dialog.close();
         });
     };
@@ -273,10 +288,10 @@
                     '<div class="mu-btn mu-btn-confirm">确定</div>' +
                     '<div class="mu-btn mu-btn-cancel">取消</div>'+
                     '</div>';
-        $.extend(dialog.options, {});
+        
         dialog.html(html);
         dialog.open();
-        $('.mu-btn').on('click', function(){
+        $('.mu-btn').on('tap', function(){
             dialog.close();
             var $this = $(this);
             if($this.hasClass('mu-btn-confirm')){

@@ -34,7 +34,7 @@
     var events = {
         start: function(event) {
 
-            var touches = event || event.originalEvent,
+            var touches = event.originalEvent || event,
                 touch = touches.touches ? touches.touches[0] : event;
 
             start = {
@@ -61,7 +61,7 @@
         },
 
         move: function(event) {
-            var touches = event || event.originalEvent,
+            var touches = event.originalEvent || event,
                 touch = touches.touches ? touches.touches[0] : event;
             if (touches && touches.length > 1 || event.scale && event.scale !== 1) return;
 
@@ -105,9 +105,10 @@
                 log(isSwipeUp ? 'global:swipeUp' : 'global:swipeDown');
             }
 
+            var tapFlag = Math.abs(delta.x) < 5 && Math.abs(delta.y) < 5 && duration < 300;
             tapTimeout = setTimeout(function(){
                 tapTimeout = null;
-                if(Math.abs(delta.x) < 5 && Math.abs(delta.y) < 5 && duration < 300) {
+                if(tapFlag) {
                     var evt = $.Event('tap');
 
                     // evt.cancelTouch = function(){

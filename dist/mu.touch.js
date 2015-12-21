@@ -28,7 +28,7 @@
     var events = {
         start: function(event) {
 
-            var touches = event || event.originalEvent,
+            var touches = event.originalEvent || event,
                 touch = touches.touches ? touches.touches[0] : event;
 
             start = {
@@ -54,7 +54,7 @@
         },
 
         move: function(event) {
-            var touches = event || event.originalEvent,
+            var touches = event.originalEvent || event,
                 touch = touches.touches ? touches.touches[0] : event;
             if (touches && touches.length > 1 || event.scale && event.scale !== 1) return;
 
@@ -94,10 +94,11 @@
                 $elem.trigger(isSwipeUp ? 'swipeUp' : 'swipeDown');
             }
 
+            var tapFlag = Math.abs(delta.x) < 5 && Math.abs(delta.y) < 5 && duration < 300;
             tapTimeout = setTimeout(function(){
                 tapTimeout = null;
-                if(Math.abs(delta.x) < 5 && Math.abs(delta.y) < 5 && duration < 300) {
-                    var evt = $.Event('tap');                    
+                if(tapFlag) {
+                    var evt = $.Event('tap');
                     $elem.trigger(evt);
                 }
             }, 0);
@@ -108,7 +109,7 @@
         }
     };
 
-    var isMobile   = window.mu ? window.mu.detect.isMobile : true,
+    var isMobile   = window.mu.detect.isMobile,
         startEvent  = isMobile ? 'touchstart' : 'mousedown',
         moveEvent   = isMobile ? 'touchmove' : 'mousemove',
         endEvent    = isMobile ? 'touchend' : 'mouseup',
