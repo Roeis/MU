@@ -91,7 +91,7 @@ gulp.task('jsmin', function(){
 });
 
 gulp.task('cssmin', function(){
-    return gulp.src('dist/mu.css')
+    return gulp.src('src/styles/mu.css')
         .pipe(gulp.dest('dist/'))
         .pipe(minifyCss())
         .pipe(rename({

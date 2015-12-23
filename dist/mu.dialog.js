@@ -29,6 +29,7 @@
         isCenter: true,
         zIndex: 1000,                           // 大于这个值
         opacity: 0.8,                          // 背景透明度
+        hard: false,
         beforeOpen: function() {},
         afterOpen: function() {},
         beforeClose: function() {},
@@ -177,7 +178,7 @@
         // such as height, width etc;
         _show: function($obj, cls, callback) {
 
-            if(needAdaptDevices){
+            if(needAdaptDevices || this.options.hard){
                 $obj.addClass('mu-visible').show();
                 callback && callback();
             }else{
@@ -188,7 +189,7 @@
             }
         },
         _hide: function($obj, cls, callback) {
-            if(needAdaptDevices){
+            if(needAdaptDevices || this.options.hard){
                 $obj.hide();
                 callback && callback();
             }else{

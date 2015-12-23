@@ -1,16 +1,16 @@
 .mu-dialog-bglayer {
   position: fixed;
   left: 0;
-  right: 0;
   top: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
   visibility: hidden;
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.8);
   -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+          backface-visibility: hidden;
   -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
+          transform-style: preserve-3d;
 }
 
 .mu-dialog {
@@ -18,9 +18,9 @@
   visibility: hidden;
   z-index: 1000;
   -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+          backface-visibility: hidden;
   -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
+          transform-style: preserve-3d;
 }
 
 .mu-visible {
@@ -69,6 +69,78 @@
   border-right: 1px solid #EEE;
 }
 
+.mu-toast-bg {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.mu-toast {
+  position: fixed;
+  z-index: 3;
+  width: 130px;
+  height: 130px;
+  top: 180px;
+  left: 50%;
+  margin-left: -65px;
+  text-align: center;
+  border-radius: 5px;
+  color: #fff;
+  background-color: rgba(40, 40, 40, 0.75);
+}
+.mu-toast .mu-toast-content {
+  position: absolute;
+  bottom: 0;
+  height: 40px;
+  width: 100%;
+}
+
+.mu-one-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 1px;
+  background: #fff;
+}
+.mu-one-loading:before {
+  position: absolute;
+  content: '';
+  width: 14px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.4);
+  left: 10px;
+  top: -1px;
+  -webkit-transform: rotate(30deg);
+          transform: rotate(30deg);
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+}
+
+@-webkit-keyframes mu-rotate-360 {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes mu-rotate-360 {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
 .mu-slider-wrap {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
