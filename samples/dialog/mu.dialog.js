@@ -29,6 +29,7 @@
         isCenter: true,
         zIndex: 1000,                           // 大于这个值
         opacity: 0.8,                          // 背景透明度
+        hard: false,
         beforeOpen: function() {},
         afterOpen: function() {},
         beforeClose: function() {},
@@ -36,7 +37,7 @@
     };
 
     var isScrollPrevented = window.mu.util.isScrollPrevented;
-    var needAdaptDevices = window.mu.detect.isMeizu || window.mu.detect.isSamsung;
+    var needAdaptDevices = window.mu.detect.isMeizu;
 
     var $body = $(document.body),
         // bgShowed = 0,
@@ -47,6 +48,7 @@
             'fadeInDown':  ['mu-fadeInDown','mu-fadeOutDown'],
             'fadeInUp':  ['mu-fadeInUp','mu-fadeOutUp'],
             'fadeInRight':  ['mu-fadeInRight','mu-fadeOutRight'],
+            'fadeInLeft':  ['mu-fadeInLeft','mu-fadeOutLeft'],
         };
     var count = 0;
     Dialog.prototype = {
@@ -62,6 +64,8 @@
             this.$bg = $(document.createElement('div')).addClass('mu-dialog-bglayer');
             this.$dialog = this.$el;
             this.isOpen = false;
+            this.isAnimating = false;
+            this.isBgAnimating = false;
             this.$wrapper = $('<div id="muDialog-'+ count +'"></div>');
 
             count ++;
@@ -113,7 +117,7 @@
             //solve orientchange issue, it recalculate its size when screen changes
             //solve orientchange in chrome between others browsers
             //change orientchange event to resize
-            $(window).on('resize', function(){
+            $(window).on('resize.mudialog', function(){
                 self._adjust();
             });
         },
@@ -140,33 +144,39 @@
         },
 
         open: function() {
-            if (this.isOpen) return;
+            if (this.isOpen && this.isAnimating && this.isBgAnimating) return;
             this.isOpen = true;
-            // bgShowed ++;
-            this.options.beforeOpen.call(this);
+            this.isAnimating = this.isBgAnimating = true;
 
+            this.options.beforeOpen.call(this);
             this._show(this.$dialog, this.options.showClass, $.proxy(function() {
                 this.options.afterOpen.call(this);
-                this._bindBG();
+                this.isAnimating = false;
                 window.mu.util.preventScroll();
             }, this));
-            this._show(this.$bg, 'mu-fadeIn');
+            this._show(this.$bg, 'mu-fadeIn', $.proxy(function(){
+                this.isBgAnimating = false;
+                this._bindBG();
+            }, this));
         },
 
         close: function() {
-            if (!this.isOpen) return;
+            if (!this.isOpen && this.isAnimating && this.isBgAnimating) return;
+            this.isAnimating = this.isBgAnimating = true;
 
             this.options.beforeClose.call(this);
-
+            this._unbindBG();
             this._hide(this.$dialog, this.options.hideClass, $.proxy(function() {
                 this.options.afterClose.call(this);
-                this._unbindBG();
                 this.isOpen = false;
+                this.isAnimating = false;
                 if(!isScrollPrevented){
                     window.mu.util.recoverScroll();
                 }
             }, this));
-            this._hide(this.$bg, 'mu-fadeOut');
+            this._hide(this.$bg, 'mu-fadeOut', $.proxy(function(){
+                this.isBgAnimating = false;
+            }, this));
         },
 
         // require $.fn.oneAnimationEnd
@@ -176,9 +186,9 @@
         // when the dialog is unvisible, its properties still can be read
         // such as height, width etc;
         _show: function($obj, cls, callback) {
-
-            if(needAdaptDevices){
-                $obj.addClass('mu-visible').show();
+            
+            if(needAdaptDevices || this.options.hard){
+                $obj.addClass('mu-visible');
                 callback && callback();
             }else{
                 $obj.addClass('mu-visible').oneAnimationEnd(cls, function() {
@@ -188,10 +198,11 @@
             }
         },
         _hide: function($obj, cls, callback) {
-            if(needAdaptDevices){
-                $obj.hide();
+            if(needAdaptDevices || this.options.hard){
+                $obj.removeClass('mu-visible');
                 callback && callback();
             }else{
+
                 $obj.oneAnimationEnd(cls, function() {
                     $obj.removeClass('mu-visible').removeClass(cls);
                     callback && callback();

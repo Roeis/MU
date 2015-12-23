@@ -10,6 +10,27 @@
     <link rel="stylesheet" href="/src/styles/base.css">
     <link rel="stylesheet" href="/src/styles/test.css">
     <link rel="stylesheet" href="/src/styles/mu.css">
+    <style>
+        .test3{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background-color: rgba(40, 40, 40, .6);
+            visibility: hidden;
+            /*-webkit-animation: mu-rotate-360 2s linear infinite;*/
+            /*animation: mu-rotate-360 2s linear infinite;*/
+        }
+        /*@keyframes mu-rotate-360 {
+          0% {transform: rotate(0deg);}
+          100% {transform: rotate(360deg);}
+        }
+        @-webkit-keyframes mu-rotate-360 {
+          0% {-webkit-transform: rotate(0deg);}
+          100% {-webkit-transform: rotate(360deg);}
+        }*/
+    </style>
 </head>
 
 <body>
@@ -17,8 +38,9 @@
         header
     </header>
 
-    <!-- <img src="loading.gif"> -->
+    <img src="loading.gif">
 
+    
     <div class="wrapper wrapperAll">
         <div class="block">
             <div class="btn" id="alert">alert</div>
@@ -27,10 +49,39 @@
         </div>
         <div class="block">
             <div class="btn" id="open">open dialog</div>
+            <br>
+            <div class="btn" id="open2">open2</div>
         </div>
         <div class="block">3</div>
         <div class="block">4</div>
         <div class="block">5</div>
+    </div>
+    <div id="mud">
+        <div class="test3">
+            <div class="ws_body">
+            <div class="ws_block">
+                <h3>更多精华，关注公众号</h3>
+                <div class="cf por">
+                    <div class="pic fl">
+                        <img src="http://i2.w.hjfile.cn/news/201507/201507301554820611.jpg" alt="华景德语">
+                    </div>
+                    <div class="info">
+                        <p class="p1">沪江德语</p>
+                        <p class="p2">微信号: hjgerman</p>
+                        <!-- <img src="loading.gif"> -->
+                    </div>
+                </div>
+            </div>
+            <div class="ws_block cf">
+                <h3>精品推荐</h3>
+                <div class="hotlinks">
+    
+                    <a href="###">按二维码，点击“识别图中二维码”即图中二维图中二维可关注我们~</a>
+                    <a href="###">按二维码，点击“识别图中二维码”即可关注我们~</a>
+                </div>
+            </div>
+        </div>
+        </div>
     </div>
 
     <div class="btm-opers fix fix-bottom"></div>
@@ -90,23 +141,51 @@
     </div>
 
 
-    <!-- <script src="/vendor/jq/jquery-2.1.3.min.js"></script> -->
+    <!-- <script src="/vendor/jq/jquery-1.9.1.min.js"></script> -->
     <script src="/vendor/zepto.min.js"></script>
     <!-- // <script src="/dist/mu.latest.min.js"></script> -->
     <script src="/dist/mu.js"></script>
     <script src="/dist/mu.touch.js"></script>
     <script src="mu.dialog.js"></script>
     <script>
-        var $env = $('header');
-        for(var key in mu.detect){
-            var html = key + ': '+ mu.detect[key] + '<br/>';
-            $env.append(html);
-        }
+
+        var $open2 = $('#open2'),
+            $te = $('.test3');
+
+        $open2.on('click', function(){
+            $te.css('visibility', 'visible');
+            // $te.addClass('mu-fadeInDown')
+            $te.addClass('mu-fadeInRight').one(animationEvents.animationEnd, function(){
+                $te.on('click.te', function(){
+                    $te.css('visibility', 'hidden');
+                    $te.removeClass('mu-fadeInRight');
+                    $te.off('click.te');
+                });
+            });
+        });
+
+
+
+        // $te.on('click', function(){
+        //     $te.css('visibility', 'hidden');
+        //     $te.removeClass('mu-fadeInDown')
+        //     // $te.addClass('mu-fadeOutDown').one(animationEvents.animationEnd, function(){
+        //     //     $te.removeClass('mu-fadeOutDown')
+                
+        //     // });
+        // });
+
+        // var $env = $('header');
+        // for(var key in mu.detect){
+        //     var html = key + ': '+ mu.detect[key] + '<br/>';
+        //     $env.append(html);
+        // }
         window.dialog1 = new MuDialog('.weixin_success', {
             preset: 'fadeInDown',
             // showClass: 'mu-fadeInUp',
             // hard: true,
             // isCenter: false,
+            // 
             beforeOpen: function(){
                 
                 // console.log('12 open before');
@@ -141,16 +220,16 @@
         window.dialog2 = $.fn.muDialog.instances['0'];
 
 
-        $('#open').on('tap', function() {
+        $('#open').on('click', function() {
             dialog1.open();
         });
-        $('#alert').on('tap', function(){
+        $('#alert').on('click', function(){
             mu.util.alert('this is an alert');
         });
-        $('#tip').on('tap', function(){
+        $('#tip').on('click', function(){
             mu.util.tip('this is a tip');
         });
-        $('#confirm').on('tap', function(){
+        $('#confirm').on('click', function(){
             // confirm
             mu.util.confirm('你确定要修改吗?', function(flag){
                 if(flag){
