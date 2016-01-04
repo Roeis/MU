@@ -12,15 +12,14 @@
             console.log('test2');
         }
     };
-    core.test();
 
     function Demo(){
         this.msg = 'sd';
     }
 
 
-    if(global.mure){
-        global.mure.registry('test', core);
+    if(global.mu){
+        global.mu.registry('test', core);
     }
 
 })(this);
