@@ -9,69 +9,115 @@
 (function(){
     'use strict';
     
-    // // demonstrate an example here, commonjs
-    // var slideTip = require('slideTip');
 
-    // slideTip.doSomething({
-    //     test: 'test'
-    // });
+    var core = {
+        loadCSS: function(){
 
-    // slideTip.doSomethingB();
+        },
+        loadJS: function(){
 
-    // // or amd
-    // require('slideTip', function(slide){
+        },
 
-    //     slide.doSomething();
+    }
 
-    // });
-    // 
-    
+
+
     function Mure(){}
 
     var mure = new Mure();
 
-    mure.registry = function(name,obj){
+    var requests = {};
+
+    // requirement states
+    var REQUESTED = 1,
+        LOADED    = 2,
+        EXECUTED  = 3,
+        COMPLETE  = 4;
+
+    function setRequire(url){
+        return requests[url] = {
+            url: url,
+            status: 0
+        }
+    }
+
+    //isCSS = /\.css$/i,
+    //isJS = /\.js$/i
+
+    // registry module to mu.require
+
+    var head = document.getElementsByTagName('head');
+
+    head = head.length ? head[0] : document.documentElement;
+
+    mure.registry = function(name, obj){
         var module = {};
         module[name] = obj;
         mu.util.extend(this, module);
     };
+
+
+    // save status, status show
+
+    // require module's url, 
+    // callback this.module's export 
+    // 
+
     mure.require = function(url, callback){
         var node = document.createElement('script'),
-            head = document.getElementsByTagName('head'),
             self = this,
             done = false;
 
         node.async = 'true';
         node.src = url;
 
-        head = head.length ? head[0] : document.documentElement;
+        var module = url.match(/([^ \/]*)\.js/);
 
         // 加载完毕后执行
         node.onload = node.onreadystatechange = function () {
+
             if (!done && (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete')) {
                 done = true;
-                try {
-                    //基本事件统计
-                    // pgvMain();
-                    //上报performance
-                    // sendPerformance();
-                    console.log('test');
-                    callback.call(self, self['test']);
-
-                } catch (err) {
-                    console.log(err);
+                if(callback && module && module.length > 0){
+                    console.log(module[1], 'the module name');
+                    callback.call(self, self[module[1]]);
                 }
                 node.onload = node.onreadystatechange = null;
             }
         };
+
+        // node onerror 
+        node.onerror = function(){
+            console.log('failed load module', module[1]);
+            // head.removeChild(node);
+        }
 
         head.appendChild(node);
     };
 
     window.mure = mure;
 
-    mure.require('test.js', function(core){
-        console.log(core);
+    function loadCSS(url){
+        var node = document.createElement('link');
+
+        node.type = 'text/css';
+        node.rel = 'stylesheet';
+        node.href = url;
+
+        head.appendChild(node);
+    }
+    
+    // mu.require('.js, .css'), 异步加载
+    //
+    //
+    //
+
+    mure.require('http://m.hujiang.com/js/vendor/js.cookie.js', function(core){
+        mure.require('test.js', function(core){
+            // var test = new core();
+            console.log(core);
+        });
+        console.log(core, 'the module required');
     });
 
 

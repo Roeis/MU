@@ -14,6 +14,11 @@
     };
     core.test();
 
+    function Demo(){
+        this.msg = 'sd';
+    }
+
+
     if(global.mure){
         global.mure.registry('test', core);
     }
