@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>example roeis</title>
+    <link rel="stylesheet" href="/src/styles/base.css">
+    <link rel="stylesheet" href="/src/styles/test.css">
+    <link rel="stylesheet" href="/src/styles/mu.css">
+    <style>
+    .test3 {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-color: rgba(40, 40, 40, .6);
+        visibility: hidden;
+    }
+    .pt-search {
+          width: 100%;
+          position: relative;
+        }
+        .pt-search input {
+          -webkit-appearance: none;
+          appearance: none;
+          border-radius: 3px 0 0 3px;
+          border: 1px solid #eee;
+          height: 5rem;
+          padding: 0 7rem 0 1.6rem;
+          width: 100%;
+          outline: none;
+        }
+        .pt-search .pt-search-btn {
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 6rem;
+          height: 5rem;
+          padding-top: 1.2rem;
+          border-radius: 0 3px 3px 0;
+          background-color: #40C46F;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        header
+    </header>
+    <img src="loading.gif">
+    <div class="wrapper wrapperAll">
+        <div class="block">
+            <div class="btn" id="alert">alert</div>
+            <div class="btn" id="tip">tip</div>
+            <div class="btn" id="confirm">confirm</div>
+        </div>
+        <div class="block">
+            <div class="btn" id="open">open dialog</div>
+            <br>
+            <div class="btn" id="open2">open2</div>
+        </div>
+        <div class="block">3</div>
+        <div class="block">4</div>
+        <div class="block">5</div>
+    </div>
+    <div id="mud">
+        <div class="test3">
+            <div class="ws_body">
+                <div class="ws_block">
+                    <h3>更多精华，关注公众号</h3>
+                    <div class="cf por">
+                        <div class="pic fl">
+                            <img src="http://i2.w.hjfile.cn/news/201507/201507301554820611.jpg" alt="华景德语">
+                        </div>
+                        <div class="info">
+                            <p class="p1">沪江德语</p>
+                            <p class="p2">微信号: hjgerman</p>
+                            <!-- <img src="loading.gif"> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="ws_block cf">
+                    <h3>精品推荐</h3>
+                    <div class="hotlinks">
+                        <a href="###">按二维码，点击“识别图中二维码”即图中二维图中二维可关注我们~</a>
+                        <a href="###">按二维码，点击“识别图中二维码”即可关注我们~</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btm-opers fix fix-bottom"></div>
+    <!-- <div id="muToast-ok">
+        <div class="mu-toast-bg"></div>
+        <div class="mu-toast">
+            <div class="load3">
+                <div class="loader"></div>
+            </div>
+            <i class="icon">correct</i>
+            <p class="mu-toast-content">已完成</p>
+        </div>
+    </div> -->
+    <!-- <div id="muToast-loading">
+        <div class="mu-toast-bg"></div>
+        <div class="mu-toast">
+            <div class="mu-one-loading"></div>
+            <p class="mu-toast-content">正在加载中</p>
+        </div>
+    </div> -->
+    <!--             ios         android
+    weixin      通过        不通过
+    UC          通过
+    QQ -->
+    <!-- 微信回调 -->
+    <div class="weixin_success" style="display:none">
+        <div class="ws_head">
+            分享成功
+        </div>
+        <div class="ws_body">
+            <div class="ws_block">
+                <h3>更多精华，关注公众号</h3>
+                <div class="cf por">
+                    <div class="pt-search">
+                        <input type="text" class="pt-search-text" placeholder="输入内容">
+                        <a href="javascript:;" class="pt-search-btn">
+                            <i class="iconhead iconhead-search"></i>
+                        </a>
+                    </div>
+                    <div class="pic fl">
+                        <img src="http://i2.w.hjfile.cn/news/201507/201507301554820611.jpg" alt="华景德语">
+                    </div>
+                    <div class="info">
+                        <p class="p1">沪江德语</p>
+                        <p class="p2">微信号: hjgerman</p>
+                        <p class="p3">长按二维码，点击“识别图中二维码”即可关注我们~</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ws_block cf">
+                <h3>精品推荐</h3>
+                <div class="hotlinks">
+                    <a href="###">按二维码，点击“识别图中二维码”即图中二维图中二维可关注我们~</a>
+                    <a href="asdf">按二维码，点击“识别图中二维码”即可关注我们~</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <script src="/vendor/jq/jquery-1.9.1.min.js"></script> -->
+    <script src="/vendor/zepto.min.js"></script>
+    <!-- // <script src="/dist/mu.latest.min.js"></script> -->
+    <script src="/dist/mu.js"></script>
+    <script src="/dist/mu.touch.js"></script>
+    <script src="mu.dialog.js"></script>
+    <script>
+    var $open2 = $('#open2'),
+        $te = $('.test3');
+
+    $open2.on('click', function() {
+        $te.css('visibility', 'visible');
+        // $te.addClass('mu-fadeInDown')
+        $te.addClass('mu-fadeInRight').one(animationEvents.animationEnd, function() {
+            $te.on('click.te', function() {
+                $te.css('visibility', 'hidden');
+                $te.removeClass('mu-fadeInRight');
+                $te.off('click.te');
+            });
+        });
+    });
+
+
+
+    // $te.on('click', function(){
+    //     $te.css('visibility', 'hidden');
+    //     $te.removeClass('mu-fadeInDown')
+    //     // $te.addClass('mu-fadeOutDown').one(animationEvents.animationEnd, function(){
+    //     //     $te.removeClass('mu-fadeOutDown')
+
+    //     // });
+    // });
+
+    // var $env = $('header');
+    // for(var key in mu.detect){
+    //     var html = key + ': '+ mu.detect[key] + '<br/>';
+    //     $env.append(html);
+    // }
+    window.dialog1 = new MuDialog('.weixin_success', {
+        preset: 'fadeInDown',
+        // showClass: 'mu-fadeInUp',
+        // hard: true,
+        // isCenter: false,
+        // 
+        beforeOpen: function() {
+
+            // console.log('12 open before');
+        },
+        afterOpen: function() {
+            console.log('12 open after');
+        },
+        beforeClose: function() {
+            // preventTouch();
+        },
+        afterClose: function() {
+            // cancelPreventTouch();
+            console.log('close after');
+        }
+    });
+
+
+
+    function preventTouch() {
+        document.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+        }, false);
+    }
+
+    function cancelPreventTouch() {
+        document.removeEventListener('touchstart', function(e) {
+            e.preventDefault();
+        }, false);
+    }
+
+    $('<div class="sdf">sadfa</div>').muDialog({
+        afterOpen: function() {
+
+        }
+    });
+
+    window.dialog2 = $.fn.muDialog.instances['0'];
+
+
+    $('#open').on('click', function() {
+        dialog1.open();
+    });
+    $('#alert').on('click', function() {
+        mu.util.alert('this is an alert');
+    });
+    $('#tip').on('click', function() {
+        mu.util.tip('this is a tip');
+    });
+    $('#confirm').on('click', function() {
+        // confirm
+        mu.util.confirm('你确定要修改吗?', function(flag) {
+            if (flag) {
+                console.log('ok');
+            } else {
+                console.log('false');
+            }
+        });
+    });
+    </script>
+</body>
+
+</html>
